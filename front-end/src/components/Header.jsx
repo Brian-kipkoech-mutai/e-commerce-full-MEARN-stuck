@@ -9,10 +9,15 @@ import {
 import MenuBar from "./menuBar";
 import { useState } from "react";
 import Logo from "@/assets/logo";
+import { NavLink } from "react-router-dom";
+import Categories from "./categories";
+import { motion } from "framer-motion";
 
 function Header() {
   const [openSide, setOpenSide] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const hoverVariant = { scale: 1.1 };
+  const tapVariant = { scale: 1 };
 
   const toggleMenu = () => {
     if (openSide) {
@@ -42,10 +47,42 @@ function Header() {
             </SheetTrigger>
             <SheetContent side={"right"}>
               <SheetHeader>
-                <SheetTitle>Are you absolutely sure?</SheetTitle>
+                <SheetTitle>Menu</SheetTitle>
                 <SheetDescription>
-                  This action cannot be undone. This will permanently delete
-                  your account and remove your data from our servers.
+                  <nav className="flex flex-col  items-start gap-3  font-semibold  text-base text-gray-600">
+                    <motion.div whileTap={tapVariant} whileHover={hoverVariant}>
+                      <NavLink
+                        to={"/"}
+                        className={({ isActive }) =>
+                          isActive && "text-gray-800"
+                        }
+                      >
+                        Home
+                      </NavLink>
+                    </motion.div>
+
+                    <Categories />
+                    <motion.div whileTap={tapVariant} whileHover={hoverVariant}>
+                      <NavLink
+                        to={"/"}
+                        className={({ isActive }) =>
+                          isActive && "text-gray-800"
+                        }
+                      >
+                        About
+                      </NavLink>
+                    </motion.div>
+                    <motion.div whileTap={tapVariant} whileHover={hoverVariant}>
+                      <NavLink
+                        to={"/"}
+                        className={({ isActive }) =>
+                          isActive && "text-gray-800"
+                        }
+                      >
+                        Contact us
+                      </NavLink>
+                    </motion.div>
+                  </nav>
                 </SheetDescription>
               </SheetHeader>
             </SheetContent>
