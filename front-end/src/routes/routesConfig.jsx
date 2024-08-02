@@ -1,5 +1,7 @@
+import DetailSection from "@/components/DetailSection";
 import Featured from "@/components/Featured";
 import Latest from "@/components/Latest";
+import ReviewSection from "@/components/ReviewSection";
 import Home from "@/pages/home";
 import Product from "@/pages/Product";
 import Root from "@/pages/root";
@@ -23,11 +25,13 @@ function RoutesConfig() {
           ],
         },
         {
-          path: 'product',
+          path: "product",
           element: <Product />,
-          
-        }
-        
+          children: [
+            { path: "reviews", element: <ReviewSection /> },
+            { path: "details",  element: <DetailSection /> },
+          ],
+        },
       ],
     },
   ]);

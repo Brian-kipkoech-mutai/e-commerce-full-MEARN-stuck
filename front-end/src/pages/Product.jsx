@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
 import Featured from "../assets/images/pexels-leticiacurveloph-26093505-removebg-preview.png";
-
 import {
   Carousel,
   CarouselContent,
@@ -11,19 +10,17 @@ import {
 import { Heart, Share2, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 import Latest from "@/components/Latest";
 
-import Review from "@/components/Review";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
+import ReviewSection from "@/components/ReviewSection";
+import { Link, Outlet } from "react-router-dom";
 
 const Product = () => {
+  const tapVariance = { scale: 0.9 };
+
   return (
     <div>
       <section className="  flex  flex-col lg:flex-row gap-2 md:gap-10 lg:gap-20 items-center  max-w-screen-lg mx-auto  pb-20">
@@ -54,10 +51,16 @@ const Product = () => {
             <h1 className="font-semibold  text-2xl lg:text-3xl  ">
               Raw Black T-Shirt Lineup
             </h1>
-            <div>
+            <motion.div
+              className="cursor-pointer"
+              whileHover={{
+                rotate: [0, 10, -10, 5, -5, 0],
+                transition: { duration: 0.5, ease: "easeInOut" },
+              }}
+            >
               {" "}
               <Share2 />
-            </div>
+            </motion.div>
           </div>
           <div className="space-y-4">
             <section className="flex gap-2 bg-gray-100 px-3 py-1 rounded-full w-fit items-center text-sm text-muted-foreground font-semibold tracking-wide">
@@ -128,11 +131,16 @@ const Product = () => {
             </section>
           </div>
           <div className="w-full md:w-3/4 max-w-lg    flex gap-4 justify-between lg:items-center sm:items-end   ">
-            <Button className="flex-1 py-6">Add to Cart</Button>
+            <motion.div className="flex-1 " whileTap={tapVariance}>
+              <Button className="w-full py-6">Add to Cart</Button>
+            </motion.div>
 
-            <span className="grid place-items-center p-3 border rounded ">
-              <Heart />
-            </span>
+            <motion.div
+              className="grid place-items-center p-3 border rounded group cursor-pointer "
+              whileTap={tapVariance}
+            >
+              <Heart className="group-hover:fill-gray-800" />
+            </motion.div>
           </div>
           <p className="uppercase  text-muted-foreground font-semibold  text-sm tracking-wider">
             — Free shipping on orders $100+
@@ -142,14 +150,20 @@ const Product = () => {
       <section className=" px-3 max-w-screen-lg mx-auto">
         <section className="flex flex-col  md:flex-row ">
           <section className=" w-full md:w-[30%] flex flex-row  md:flex-col  justify-between md:justify-center gap-4">
-            <div className="flex gap-3 items-center bg-gray-100 px-6 py-2 rounded-md cursor-pointer">
-              <DotsHorizontalIcon />
-              <p className="font-semibold "> Details </p>
-            </div>
-            <div className="flex gap-3 items-center active:bg-gray-100 px-6 py-2 rounded-md cursor-pointer text-muted-foreground">
-              <Star className="h-4 w-4" />
-              <p className="font-semibold  ">Reviews</p>
-            </div>
+            <Link to="details" className="block">
+              <div className="flex gap-3 items-center bg-gray-100 px-6 py-2 rounded-md cursor-pointer">
+                <DotsHorizontalIcon />
+                <p className="font-semibold">Details</p>
+              </div>
+            </Link>
+            <Link to="details" className="block">
+              <div className="flex gap-3 items-center active:bg-gray-100 px-6 py-2 rounded-md cursor-pointer text-muted-foreground">
+                <Star className="h-4 w-4" />
+                <p className="font-semibold  ">
+                  <Link to={"reviews"}>Reviews</Link>
+                </p>
+              </div>
+            </Link>
           </section>
           <section className=" w-full md:w-[70%]  md:pl-10 space-y-4 pb-20">
             <div>
@@ -166,52 +180,28 @@ const Product = () => {
               </div>
             </div>
             <div className="space-y-10 ">
-              {/* <p className=" text-sm leading-relaxed tracking-wide text-muted-foreground">
-                Elevate your everyday style with our Men\'s Black T-Shirts, the
-                ultimate wardrobe essential for modern men. Crafted with
-                meticulous attention to detail and designed for comfort, these
-                versatile black tees are a must-have addition to your
-                collection. The classic black color never goes out of style.
-                Whether you're dressing up for a special occasion or keeping it
-                casual, these black t-shirts are the perfect choice,
-                effortlessly complementing any outfit.
-              </p>
-              <ul className="list-disc pl-5 text-sm text-muted-foreground  space-y-3">
-                <li>Tailored Fit</li>
-                <li>Premium Quality</li>
-                <li>Versatile Wardrobe Staple</li>
-                <li>Available in Various Sizes</li>
-              </ul> */}
-
-              <div className="space-y-4">
-                <section className="flex justify-end md:justify-start">
-                  <Button className="">Write a review</Button>
-                </section>
-                <section className="space-y-4">
-                  <section className="flex justify-end">
-                    <Select>
-                      <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Sort by" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="light">Latest</SelectItem>
-                        <SelectItem value="dark">Stars</SelectItem>
-                        <SelectItem value="system">Arliest</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </section>
-                  <hr className="w-full" />
-                  <section className="flex flex-col gap-6">
-                    {[...Array(5)].map((el, i) => (
-                      <Review key={i} />
-                    ))}
-                  </section>
-                </section>
-              </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 ,transition:{duration:0.5, ease:"easeInOut"}}}
+                  exit={{ opacity: 0, x: 20 }}
+                >
+                  <Outlet />
+                </motion.div>
+              </AnimatePresence>
             </div>
           </section>
         </section>
       </section>
+      <motion.section
+        className="w-fit mx-auto my-4 mb-20"
+        whileTap={tapVariance}
+      >
+        {" "}
+        <Button className=" py-6 px-8 bg-transparent text-gray-800  shadow-lg border hover:bg-gray-100 ">
+          Load More Reviews
+        </Button>
+      </motion.section>
       <section
         className="max-w-screen-xl mx-auto 
       "
