@@ -21,7 +21,7 @@ import {
 import MenuBar from "./menuBar";
 import { useState } from "react";
 import Logo from "@/assets/logo";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Categories from "./categories";
 import { motion } from "framer-motion";
 import { User, ShoppingCart, ChevronRight } from "lucide-react";
@@ -54,7 +54,7 @@ function Header() {
           <span>Trend Hive</span>
         </section>
         <section className="hidden lg:visible  lg:flex items-center gap-4 font-semibold">
-          <NavLink>Home</NavLink>
+          <NavLink to={"/"}>Home</NavLink>
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -75,8 +75,8 @@ function Header() {
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-          <NavLink>About</NavLink>
-          <NavLink>Contact</NavLink>
+          <NavLink to={"/about"}>About</NavLink>
+          <NavLink to={"/contact"}>Contact</NavLink>
         </section>
         <section className="flex items-center pr-2 lg:hidden">
           <Sheet open={openSide} onOpenChange={toggleMenu}>
@@ -96,7 +96,10 @@ function Header() {
                       >
                         <div className="rounded-full border p-1">
                           {" "}
-                          <User />
+                          <NavLink to={"/profile"}>
+                            {" "}
+                            <User />
+                          </NavLink>
                         </div>
                         <span className="font-normal">Profile</span>
                       </motion.div>
@@ -112,7 +115,10 @@ function Header() {
                         >
                           <div className=" ">
                             {" "}
-                            <ShoppingCart />
+                            <NavLink to={'/cart'}>
+                              {" "}
+                              <ShoppingCart />
+                            </NavLink>
                           </div>
                           <span className="font-normal">Cart</span>
                         </motion.div>
@@ -133,7 +139,7 @@ function Header() {
                     <Categories />
                     <motion.div whileTap={tapVariant} whileHover={hoverVariant}>
                       <NavLink
-                        to={"/"}
+                        to={"/about"}
                         className={({ isActive }) =>
                           isActive && "text-gray-800"
                         }
@@ -143,7 +149,7 @@ function Header() {
                     </motion.div>
                     <motion.div whileTap={tapVariant} whileHover={hoverVariant}>
                       <NavLink
-                        to={"/"}
+                        to={"/contactus"}
                         className={({ isActive }) =>
                           isActive && "text-gray-800"
                         }
@@ -173,11 +179,15 @@ function Header() {
         </section>
         <section className="hidden lg:flex gap-6 items-center ">
           <div className=" rounded-full p-1 border cursor-pointer">
-            <User></User>{" "}
+            <NavLink to={"/profile"}>
+              <User></User>
+            </NavLink>
           </div>
           <div className="cursor-pointer">
             {" "}
-            <ShoppingCart></ShoppingCart>
+            <NavLink to={"/cart"}>
+              <ShoppingCart></ShoppingCart>
+            </NavLink>
           </div>
         </section>
       </section>

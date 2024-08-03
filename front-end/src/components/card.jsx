@@ -10,7 +10,7 @@ function CardContainer(props) {
   return (
      
     <div className=" border shadow-lg  w-[45%]  max-w-60 rounded-md flex-shrink-0 cursor-pointer group ">
-      <Link to={'/product'} > 
+      <Link to={'/product/details'} > 
       <section className=" relative    rounded-t-md overflow-hidden  ">
         <img
           src={placeHolderImg}

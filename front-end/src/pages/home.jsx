@@ -5,6 +5,7 @@ import React from "react";
 import Featured from "@/assets/images/pexels-leticiacurveloph-26093505-removebg-preview.png";
 import CardContainer from "@/components/card";
 import { NavLink, Outlet } from "react-router-dom";
+import Trasition from "@/components/Trasition";
 
 function Home(props) {
   return (
@@ -148,6 +149,7 @@ function Home(props) {
           </div>
         </section>
       </section>
+      <Trasition/>
     </div>
   );
 }
