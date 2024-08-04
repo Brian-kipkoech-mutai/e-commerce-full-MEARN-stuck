@@ -2,6 +2,7 @@ import DetailSection from "@/components/DetailSection";
 import Featured from "@/components/Featured";
 import Latest from "@/components/Latest";
 import ReviewSection from "@/components/ReviewSection";
+import SignUpContainer from "@/container/SignUpContainer";
 import ForgotPassword from "@/pages/ForgotPassword";
 import Home from "@/pages/home";
 import Login from "@/pages/Login";
@@ -42,7 +43,7 @@ function RoutesConfig() {
         },
         {
           path: "/signup",
-          element: <SignUp />,
+          element: <SignUpContainer/>,
         },
         {
           path: "/profile",

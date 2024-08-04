@@ -1,15 +1,20 @@
-import React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Divider from "@/components/Divider";
 import Trasition from "@/components/Trasition";
 import { Link } from "react-router-dom";
+import Login from "./Login";
 
-const SignUp = () => {
+const SignUp = ({ handleChange, handleSubmit, handleGoogleSignup }) => {
   return (
-    <form className="max-w-xs mx-auto flex flex-col gap-4 py-8">
+    <form
+      className="max-w-xs mx-auto flex flex-col gap-4 py-8"
+      onSubmit={handleSubmit}
+    >
       <section>
-        <Button className="w-full">Continue with Google</Button>
+        <Button className="w-full" onClick={handleGoogleSignup}>
+          Continue with Google
+        </Button>
       </section>
       <Divider></Divider>
       <section className=" flex flex-col gap-2">
@@ -17,19 +22,38 @@ const SignUp = () => {
           <label htmlFor="name" className="font-semibold  text-gray-700">
             Name
           </label>
-          <Input id="name" type="text" className="mt-1"></Input>
+          <Input
+            id="name"
+            type="text"
+            className="mt-1"
+            onChange={handleChange}
+            required
+          ></Input>
         </fieldset>
         <fieldset>
           <label htmlFor="email" className="font-semibold  text-gray-700">
             Email
           </label>
-          <Input id="email" type="email" className="mt-1"></Input>
+          <Input
+            id="email"
+            type="email"
+            className="mt-1"
+            onChange={handleChange}
+            required
+          ></Input>
         </fieldset>
         <fieldset>
           <label htmlFor="password" className="font-semibold text-gray-700">
             Password
           </label>
-          <Input id="password" type="password" className="mt-1"></Input>
+
+          <Input
+            id="password"
+            type="password"
+            className="mt-1"
+            onChange={handleChange}
+            required
+          ></Input>
         </fieldset>
         <p className="text-center text-muted-foreground text-sm">
           By creating an account you agree with our Terms of Service, Privacy
@@ -37,10 +61,12 @@ const SignUp = () => {
         </p>
       </section>
       <section>
-        <Button className="w-full">Create account</Button>
+        <Button className="w-full" type="submit">
+          Create account
+        </Button>
       </section>
       <section>
-        <Link to={'/login'}>
+        <Link to={"/login"}>
           <p className="text-center text-muted-foreground text-sm mt-6 hover:underline underline-offset-1 hover:text-blue-600 ">
             Already have an account? Log in
           </p>
