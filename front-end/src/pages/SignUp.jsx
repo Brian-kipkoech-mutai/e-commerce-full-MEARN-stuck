@@ -3,14 +3,42 @@ import { Button } from "@/components/ui/button";
 import Divider from "@/components/Divider";
 import Trasition from "@/components/Trasition";
 import { Link } from "react-router-dom";
-import Login from "./Login";
+import { motion } from "framer-motion";
 
-const SignUp = ({ handleChange, handleSubmit, handleGoogleSignup }) => {
+const SignUp = ({
+  handleChange,
+  handleSubmit,
+  handleGoogleSignup,
+  loading,
+  data,
+  error,
+}) => {
+  
   return (
     <form
       className="max-w-xs mx-auto flex flex-col gap-4 py-8"
       onSubmit={handleSubmit}
     >
+      {data && <section>{data.message}</section>}
+      {error && (
+        <motion.section
+          className="text-red-600 p-4 font-bold "
+          initial={{
+            x: 20,
+            opacity: 0,
+          }}
+          animate={{
+            x: 0,
+            opacity: 1,
+            transition: {
+              duration: 0.5,
+              type: "spring",
+            },
+          }}
+        >
+          {error} !
+        </motion.section>
+      )}
       <section>
         <Button className="w-full" onClick={handleGoogleSignup}>
           Continue with Google
@@ -61,8 +89,8 @@ const SignUp = ({ handleChange, handleSubmit, handleGoogleSignup }) => {
         </p>
       </section>
       <section>
-        <Button className="w-full" type="submit">
-          Create account
+        <Button className="w-full  " type="submit" disabled={loading}>
+          {loading ? "Creating account..." : "  Create account"}
         </Button>
       </section>
       <section>

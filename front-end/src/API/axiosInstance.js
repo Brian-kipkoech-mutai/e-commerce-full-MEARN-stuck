@@ -1,11 +1,11 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http/localhost:5000",
-  timeout: 1000,
+  baseURL: "http://localhost:5001/api",
+  timeout: 10000,
 });
 
-axiosInstance.interceptors.use(
+axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -18,9 +18,13 @@ axiosInstance.interceptors.use(
   }
 );
 
-axios.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (config) => config,
   (error) => {
+    
+    if (error.response) {
+       error.message = error.response.data.message;
+    }
     return Promise.reject(error);
   }
 );
