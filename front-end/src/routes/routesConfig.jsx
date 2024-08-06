@@ -9,7 +9,7 @@ import Login from "@/pages/Login";
 import Product from "@/pages/Product";
 import Profile from "@/pages/Profile";
 import Root from "@/pages/root";
-import SignUp from "@/pages/SignUp";
+import Verification from "@/pages/Verification";
 import { AnimatePresence } from "framer-motion";
 import React, { cloneElement } from "react";
 import { useLocation, useRoutes } from "react-router-dom";
@@ -53,6 +53,10 @@ function RoutesConfig() {
           path: "/forgotpassword",
           element: <ForgotPassword />,
         },
+        {
+          path: "/verification/:status",
+          element:<Verification/>
+        }
       ],
     },
   ]);
