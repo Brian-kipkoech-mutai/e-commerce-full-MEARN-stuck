@@ -10,7 +10,10 @@ app.use((req, res, next) => {
   next();
 });
 
-await connectDB();
+ 
+   await connectDB();
+    
+   
 
 app.use(express.json());
 

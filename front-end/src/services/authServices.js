@@ -3,3 +3,6 @@ import { apiUrls } from "@/API/endpoints";
 
 export const registerUser = async (userData) =>
   await axiosInstance.post(apiUrls.REGISTER_USER, userData);
+
+export const resendEmailLink = async (token) =>
+  await axiosInstance.post(apiUrls.RESEND_EMAIL_LINK, token);

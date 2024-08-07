@@ -1,4 +1,9 @@
-import { registrationService, verfiyEmailService } from "../services/authServices.js";
+import {
+  registrationService,
+  resendEmailVerificationLinkService,
+  verfiyEmailService,
+} from "../services/authServices.js";
+
 export const register = async (req, res, next) => {
   try {
     const user = await registrationService(req.body);
@@ -17,16 +22,29 @@ export const register = async (req, res, next) => {
 };
 
 export const verifyEmail = async (req, res, next) => {
-  const token = req.query.q;
+  const token = req.query.token;
+  console.log(token);
 
   try {
-    const user = verfiyEmailService(token)
+    const user = await verfiyEmailService(token);
     if (user) {
-      
-      res.redirect("http://localhost:5173");
+      res.redirect("http://localhost:5173/verification/success");
+    } else {
+      res.redirect(`http://localhost:5173/verification/failed?token=${token}`);
     }
-     
   } catch (error) {
-    console.log(error);
+    next(error);
+  }
+};
+export const resendEmailVerificationLink = async (req, res, next) => {
+  try {
+    const {token} = req.body;
+    const user = await resendEmailVerificationLinkService(token);
+    const message = {
+      message: `Link was resent  check  your gmail ${user.email}`,
+    };
+    res.status(201).json(message);
+  } catch (error) {
+    next(error);
   }
 };

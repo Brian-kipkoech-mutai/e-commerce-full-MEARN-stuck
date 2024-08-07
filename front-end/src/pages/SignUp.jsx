@@ -3,42 +3,21 @@ import { Button } from "@/components/ui/button";
 import Divider from "@/components/Divider";
 import Trasition from "@/components/Trasition";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { Toaster } from "@/components/ui/toaster";
 
 const SignUp = ({
   handleChange,
   handleSubmit,
   handleGoogleSignup,
   loading,
-  data,
-  error,
 }) => {
-  
   return (
     <form
       className="max-w-xs mx-auto flex flex-col gap-4 py-8"
       onSubmit={handleSubmit}
     >
-      {data && <section>{data.message}</section>}
-      {error && (
-        <motion.section
-          className="text-red-600 p-4 font-bold "
-          initial={{
-            x: 20,
-            opacity: 0,
-          }}
-          animate={{
-            x: 0,
-            opacity: 1,
-            transition: {
-              duration: 0.5,
-              type: "spring",
-            },
-          }}
-        >
-          {error} !
-        </motion.section>
-      )}
+      <Toaster className="shadow-xl" />
+
       <section>
         <Button className="w-full" onClick={handleGoogleSignup}>
           Continue with Google
