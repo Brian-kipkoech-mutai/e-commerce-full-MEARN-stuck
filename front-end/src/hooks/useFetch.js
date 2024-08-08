@@ -1,4 +1,4 @@
-import axiosInstance from "@/API/axiosInstance";
+
 import { useState, useEffect } from "react";
 
 const useFetch = (fetchFuncntion) => {

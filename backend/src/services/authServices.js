@@ -9,7 +9,7 @@ export const registrationService = async ({ email, name, password }) => {
   }
   const oneHour = 3600000;
   const emailVerificationToken = generateRandomToken();
-  const emailVerificationExpiration = new Date( Date.now()+oneHour);
+  const emailVerificationExpiration = new Date(Date.now() + oneHour);
 
   const user = new User({
     name,
@@ -28,7 +28,8 @@ export const verfiyEmailService = async (emailVerificationToken) => {
     emailVerificationToken,
   });
   console.log(
-    new Date(check.emailVerificationExpiration).toLocaleString(), '<->',
+    new Date(check.emailVerificationExpiration).toLocaleString(),
+    "<->",
     new Date().toLocaleString()
   );
   const user = await User.findOne({
@@ -48,10 +49,21 @@ export const resendEmailVerificationLinkService = async (
   }
 
   const token = generateRandomToken();
-   const oneHour = 3600000;
+  const oneHour = 3600000;
   user.emailVerificationToken = token;
   user.emailVerificationExpiration = new Date(Date.now() + oneHour);
   await user.save();
   await sendVerificationEmail(token, user.email);
   return user;
+};
+
+export const loginService = async ({ email, password }) => {
+  const user = await User.findOne({ email });
+
+  if (user) {
+    //cheking if  passoword  is the same as the one stored in db
+    const isPasswordSame = await User.comparePassword(password);
+    if (!isPasswordSame) throw new Error("password is incorrect");
+    else return user;
+  }
 };

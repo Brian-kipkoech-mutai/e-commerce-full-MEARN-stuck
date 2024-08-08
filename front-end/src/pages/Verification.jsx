@@ -14,13 +14,10 @@ const Verification = () => {
   const token = searchParams.get("token");
   const success = status === "success";
   const { toast } = useToast();
-  const { data, error, loading, postData, resetDefault } =
-    usePost(resendEmailLink);
+  const { data, error, loading, postData } = usePost(resendEmailLink);
   ShowToast(toast, data, error);
-  const handlePost = () => {
-    resetDefault();
-    postData({ token });
-  };
+  const handlePost = () => postData({ token });
+
   return (
     <div className="grid place-items-center min-h-60 ">
       <div

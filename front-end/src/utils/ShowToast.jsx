@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
  
 function ShowToast(toast, data, error) {
+  console.log(data,error)
   useEffect(() => {
     (data || error) &&
       toast({

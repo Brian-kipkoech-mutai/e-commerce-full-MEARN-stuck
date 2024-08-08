@@ -10,8 +10,7 @@ import ShowToast from "@/utils/ShowToast";
 function SignUpContainer(props) {
   const [formData, setFormData] = useState({});
 
-  const { data, error, postData, loading, resetDefault } =
-    usePost(registerUser);
+  const { data, error, postData, loading } = usePost(registerUser);
   const { toast } = useToast();
 
   ShowToast(toast, data, error);
@@ -25,7 +24,6 @@ function SignUpContainer(props) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    resetDefault();
     postData(formData);
   };
   const handleGoogleSignup = useGoogleLogin({

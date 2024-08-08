@@ -12,6 +12,7 @@ const usePost = (postFunction) => {
 
   const postData = async (userData) => {
     try {
+      resetDefault()
       setIsLoading(true);
         
       const { data } = await postFunction(userData);
@@ -19,13 +20,14 @@ const usePost = (postFunction) => {
        
       setData(data.message);
     } catch (error) {
+       
       setError(error.message);
       console.log(error.message)
     } finally {
       setIsLoading(false);
     }
   };
-  return { data, error, loading, postData,resetDefault };
+  return { data, error, loading, postData };
 };
 
 export default usePost;

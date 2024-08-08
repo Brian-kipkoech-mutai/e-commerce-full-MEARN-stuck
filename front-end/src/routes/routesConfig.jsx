@@ -2,10 +2,10 @@ import DetailSection from "@/components/DetailSection";
 import Featured from "@/components/Featured";
 import Latest from "@/components/Latest";
 import ReviewSection from "@/components/ReviewSection";
+import LoginContainer from "@/container/LoginContainer";
 import SignUpContainer from "@/container/SignUpContainer";
 import ForgotPassword from "@/pages/ForgotPassword";
 import Home from "@/pages/home";
-import Login from "@/pages/Login";
 import Product from "@/pages/Product";
 import Profile from "@/pages/Profile";
 import Root from "@/pages/root";
@@ -38,25 +38,25 @@ function RoutesConfig() {
           ],
         },
         {
-          path: "/login",
-          element: <Login />,
+          path: "login",
+          element: <LoginContainer />,
         },
         {
-          path: "/signup",
-          element: <SignUpContainer/>,
+          path: "signup",
+          element: <SignUpContainer />,
         },
         {
-          path: "/profile",
+          path: "profile",
           element: <Profile />,
         },
         {
-          path: "/forgotpassword",
+          path: "forgotpassword",
           element: <ForgotPassword />,
         },
         {
-          path: "/verification/:status",
-          element:<Verification/>
-        }
+          path: "verification/:status",
+          element: <Verification />,
+        },
       ],
     },
   ]);

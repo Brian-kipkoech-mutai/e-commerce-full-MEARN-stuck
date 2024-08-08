@@ -4,9 +4,14 @@ import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import Divider from "@/components/Divider";
 import Trasition from "@/components/Trasition";
-function Login(props) {
+import { Toaster } from "@/components/ui/toaster";
+function Login({ handleChange, handleSubmit, loading, postData }) {
   return (
-    <form className="max-w-xs mx-auto flex flex-col gap-4 py-8 ">
+    <form
+      className="max-w-xs mx-auto flex flex-col gap-4 py-8 "
+      onSubmit={(e) => handleSubmit(e, postData)}
+    >
+      <Toaster />
       <section>
         {" "}
         <Button className="w-full">Continue With Google</Button>{" "}
@@ -17,13 +22,24 @@ function Login(props) {
           <label htmlFor="email" className="font-semibold  text-gray-700">
             Email
           </label>
-          <Input className="email" type="email"></Input>
+          <Input
+            className=""
+            type="email"
+            name="email"
+            onChange={handleChange}
+            disabled={loading}
+          ></Input>
         </fieldset>
         <fieldset>
           <label htmlFor="name" className="font-semibold  text-gray-700">
-            Name
+            Password
           </label>
-          <Input className="email"></Input>
+          <Input
+            className=""
+            name="password"
+            onChange={handleChange}
+            disabled={loading}
+          ></Input>
         </fieldset>
         <div className="flex justify-end">
           <Link
@@ -35,7 +51,9 @@ function Login(props) {
         </div>
       </section>
       <section>
-        <Button className="w-full">Login</Button>
+        <Button className="w-full" type="submit" disabled={loading}>
+          {loading ? "Login in..." : "Login"}
+        </Button>
         <p className="text-center mt-6 ">
           <Link
             className="text-center hover:text-blue-600 hover:underline text-muted-foreground text-sm"
@@ -45,6 +63,7 @@ function Login(props) {
           </Link>
         </p>
       </section>
+
       <Trasition />
     </form>
   );
