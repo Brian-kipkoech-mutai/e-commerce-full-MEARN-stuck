@@ -115,7 +115,7 @@ function Header() {
                         >
                           <div className=" ">
                             {" "}
-                            <NavLink to={'/cart'}>
+                            <NavLink to={"/cart"}>
                               {" "}
                               <ShoppingCart />
                             </NavLink>

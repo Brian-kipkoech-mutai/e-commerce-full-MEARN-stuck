@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { ToastAction } from "@/components/ui/toast";
 import { Link } from "react-router-dom";
-
  
-function ShowToast(toast, data, error) {
-  console.log(data,error)
+
+function ShowToast(toast, data, error, link = "/login", message = "log In") {
+  console.log(data, error);
   useEffect(() => {
     (data || error) &&
       toast({
@@ -12,13 +12,12 @@ function ShowToast(toast, data, error) {
         title: "feedback",
         description: data || error,
         action: error && (
-          <Link className="block" to={"/login"}>
-            <ToastAction altText="Try again">Log in</ToastAction>
+          <Link className="block" to={link}>
+            <ToastAction altText="Try again">{message}</ToastAction>
           </Link>
         ),
       });
   }, [data, error]);
-
 }
 
 export default ShowToast;

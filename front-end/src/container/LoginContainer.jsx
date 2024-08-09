@@ -10,7 +10,7 @@ function LoginContainer() {
   const { data, error, loading, postData } = usePost(login);
   const { handleChange, handleSubmit } = useFormData();
   const { toast } = useToast();
-  ShowToast(toast, data, error);
+  ShowToast(toast, data, error, "/signup", "Sign up");
   return <Login {...{ handleChange, handleSubmit, postData, loading }} />;
 }
 

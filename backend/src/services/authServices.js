@@ -24,19 +24,17 @@ export const registrationService = async ({ email, name, password }) => {
 };
 
 export const verfiyEmailService = async (emailVerificationToken) => {
-  const check = await User.findOne({
-    emailVerificationToken,
-  });
-  console.log(
-    new Date(check.emailVerificationExpiration).toLocaleString(),
-    "<->",
-    new Date().toLocaleString()
-  );
   const user = await User.findOne({
     emailVerificationToken,
     emailVerificationExpiration: { $gt: Date.now() },
   });
-  console.log(user);
+  if (user) {
+    user.emailVerificationToken = null;
+    user.emailVerificationExpiration = null;
+    user.emailVerified = true;
+    await user.save();
+  }
+
   return user;
 };
 
@@ -58,12 +56,12 @@ export const resendEmailVerificationLinkService = async (
 };
 
 export const loginService = async ({ email, password }) => {
+  console.log(email);
   const user = await User.findOne({ email });
 
-  if (user) {
-    //cheking if  passoword  is the same as the one stored in db
-    const isPasswordSame = await User.comparePassword(password);
-    if (!isPasswordSame) throw new Error("password is incorrect");
-    else return user;
-  }
+  const isPasswordSame =
+    user &&
+    //correct  simplify tomorrow
+    (await new User({ password: user.password }).comparePassword(password));
+  return { user, isPasswordSame };
 };

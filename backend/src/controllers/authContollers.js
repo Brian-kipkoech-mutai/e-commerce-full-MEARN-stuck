@@ -4,6 +4,8 @@ import {
   resendEmailVerificationLinkService,
   verfiyEmailService,
 } from "../services/authServices.js";
+import jwt from "jsonwebtoken";
+import { JWT_SECRET_KEY, NODE_ENV } from "../config/env.js";
 
 export const register = async (req, res, next) => {
   try {
@@ -24,7 +26,6 @@ export const register = async (req, res, next) => {
 
 export const verifyEmail = async (req, res, next) => {
   const token = req.query.token;
-  console.log(token);
 
   try {
     const user = await verfiyEmailService(token);
@@ -54,8 +55,28 @@ export const resendEmailVerificationLink = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const userData = req.body;
-    await loginService(userData);
-    
+    const { user, isPasswordSame } = await loginService(userData);
+    if (!user) {
+      res
+        .status(401)
+        .json({ message: "User dose not exist try signing up instead" });
+    }
+    if (!isPasswordSame) {
+      res.status(401).json({ message: "password is  incorrect" });
+    }
+    const { _id: id } = user;
+    const token = jwt.sign({ id }, JWT_SECRET_KEY, {
+      expiresIn: "1w",
+    });
+    res
+      .cookie("auth_token", token, {
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        httpOnly: true,
+        secure: NODE_ENV === "production",
+        sameSite: "None",
+      })
+      .status(200)
+      .json({ message: "Login successful" });
   } catch (error) {
     next(error);
   }
