@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 //serve  static  content
 app.use(express.static(path.join(__dirname, "public")));
 
-//api routes
+//api routes 
 app.use("/api/auth", authRoutes);
 
 // serve  index .html for any request

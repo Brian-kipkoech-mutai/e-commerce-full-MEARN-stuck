@@ -68,16 +68,45 @@ export const login = async (req, res, next) => {
     const token = jwt.sign({ id }, JWT_SECRET_KEY, {
       expiresIn: "1w",
     });
+
+    const ifproduction = NODE_ENV === "production";
     res
       .cookie("auth_token", token, {
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         httpOnly: true,
-        secure: NODE_ENV === "production",
-        sameSite: "None",
+        secure: ifproduction,
+        sameSite: "Strict",
       })
       .status(200)
       .json({ message: "Login successful" });
   } catch (error) {
+    next(error);
+  }
+};
+
+export const checkAuth = async (req, res, next) => {
+  
+  try {
+    const { auth_token } = req.cookies;
+    if (!auth_token) {
+      return res.status(401).json({
+        message: "Unauthorized. user dose not have an account",
+      });
+    }
+    jwt.verify(auth_token, JWT_SECRET_KEY);
+    return res.status(200).json({ message: "authorized" });
+  } catch (error) {
+    if (err.name === "TokenExpiredError") {
+      return res.status(401).json({
+        message: "Unauthorized. Token has expired.",
+      });
+    }
+    if (err.name === "JsonWebTokenError") {
+      return res.status(401).json({
+        message: "Unauthorized. Invalid token.",
+      });
+    }
+
     next(error);
   }
 };
