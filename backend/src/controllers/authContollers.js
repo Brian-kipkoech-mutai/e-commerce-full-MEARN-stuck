@@ -1,11 +1,15 @@
 import {
+  googleLoginServices,
+  googleRegisterServices,
   loginService,
   registrationService,
   resendEmailVerificationLinkService,
   verfiyEmailService,
 } from "../services/authServices.js";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET_KEY, NODE_ENV } from "../config/env.js";
+import sendCookie from "../utils/sendCooki.js";
+import { JWT_SECRET_KEY } from "../config/env.js";
+import getGoogledata from "../utils/googleData.js";
 
 export const register = async (req, res, next) => {
   try {
@@ -55,8 +59,12 @@ export const resendEmailVerificationLink = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const userData = req.body;
-    const { user, isPasswordSame } = await loginService(userData);
-    if (!user) {
+    const {
+      user: { _id: id },
+      isPasswordSame,
+    } = await loginService(userData);
+
+    if (!id) {
       res
         .status(401)
         .json({ message: "User dose not exist try signing up instead" });
@@ -64,28 +72,14 @@ export const login = async (req, res, next) => {
     if (!isPasswordSame) {
       res.status(401).json({ message: "password is  incorrect" });
     }
-    const { _id: id } = user;
-    const token = jwt.sign({ id }, JWT_SECRET_KEY, {
-      expiresIn: "1w",
-    });
 
-    const ifproduction = NODE_ENV === "production";
-    res
-      .cookie("auth_token", token, {
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-        httpOnly: true,
-        secure: ifproduction,
-        sameSite: "Strict",
-      })
-      .status(200)
-      .json({ message: "Login successful" });
+    sendCookie(res, id);
   } catch (error) {
     next(error);
   }
 };
 
 export const checkAuth = async (req, res, next) => {
-  
   try {
     const { auth_token } = req.cookies;
     if (!auth_token) {
@@ -96,17 +90,89 @@ export const checkAuth = async (req, res, next) => {
     jwt.verify(auth_token, JWT_SECRET_KEY);
     return res.status(200).json({ message: "authorized" });
   } catch (error) {
-    if (err.name === "TokenExpiredError") {
+    if (error.name === "TokenExpiredError") {
       return res.status(401).json({
         message: "Unauthorized. Token has expired.",
       });
     }
-    if (err.name === "JsonWebTokenError") {
+    if (error.name === "JsonWebTokenError") {
       return res.status(401).json({
         message: "Unauthorized. Invalid token.",
       });
     }
 
+    next(error);
+  }
+};
+
+export const googleRegister = async (req, res, next) => {
+  try {
+    const { idToken } = req.body;
+
+    const { googleId, picture, name, email } = await getGoogledata(idToken);
+
+    const { id } = await googleRegisterServices({
+      googleId,
+      email,
+      name,
+      picture,
+    });
+    sendCookie(res, id);
+  } catch (error) {
+    if (error.name === "UserExists") {
+      return res.status(409).json({
+        message: error.message,
+      });
+    }
+    if (error.name === "GoogleAccountAlreadyExists") {
+      return res.status(409).json({
+        message: error.message,
+      });
+    }
+    if (error.name === "GoogleAccountLinkedToDifferentEmail") {
+      return res.status(409).json({
+        message: error.message,
+      });
+    }
+    if (error.name === "TokenExpiredError") {
+      return res.status(401).json({
+        message: "Unauthorized. Token has expired.",
+      });
+    } else if (
+      error.name === "JsonWebTokenError" ||
+      error.message === "Invalid ID token"
+    ) {
+      return res.status(401).json({
+        message: "Unauthorized. Invalid token.",
+      });
+    }
+    next(error);
+  }
+};
+
+export const googleLogin = async (req, res, next) => {
+  try {
+    const { idToken } = req.body;
+
+    const { googleId } = await getGoogledata(idToken);
+    const { id } = await googleLoginServices({ googleId });
+    sendCookie(res, id);
+  } catch (error) {
+    if (error.name === "noUser") {
+      return res.status(401).json({ message: error.message });
+    }
+    if (error.name === "TokenExpiredError") {
+      return res.status(401).json({
+        message: "Unauthorized. Token has expired.",
+      });
+    } else if (
+      error.name === "JsonWebTokenError" ||
+      error.message === "Invalid ID token"
+    ) {
+      return res.status(401).json({
+        message: "Unauthorized. Invalid token.",
+      });
+    }
     next(error);
   }
 };

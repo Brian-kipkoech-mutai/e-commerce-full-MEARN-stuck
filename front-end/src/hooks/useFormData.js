@@ -10,11 +10,7 @@ const useFormData = () => {
       [name]: value,
     });
   };
-  const handleSubmit = (e, submitFunction) => {
-    e.preventDefault();
 
-    submitFunction(formData);
-  };
-  return { handleChange, handleSubmit };
+  return { handleChange, formData };
 };
 export default useFormData;

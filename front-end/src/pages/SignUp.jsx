@@ -4,6 +4,7 @@ import Divider from "@/components/Divider";
 import Trasition from "@/components/Trasition";
 import { Link } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
+import { GoogleLogin } from "@react-oauth/google";
 
 const SignUp = ({
   handleChange,
@@ -19,9 +20,12 @@ const SignUp = ({
       <Toaster className="shadow-xl" />
 
       <section>
-        <Button className="w-full" onClick={handleGoogleSignup}>
-          Continue with Google
-        </Button>
+        <GoogleLogin
+          onSuccess={({ credential }) => handleGoogleSignup(credential)}
+          theme="filled_black"
+          size="large"
+          width={320}
+        ></GoogleLogin>
       </section>
       <Divider></Divider>
       <section className=" flex flex-col gap-2">
@@ -31,6 +35,7 @@ const SignUp = ({
           </label>
           <Input
             id="name"
+            name="name"
             type="text"
             className="mt-1"
             onChange={handleChange}
@@ -43,6 +48,7 @@ const SignUp = ({
           </label>
           <Input
             id="email"
+            name="email"
             type="email"
             className="mt-1"
             onChange={handleChange}
@@ -56,6 +62,7 @@ const SignUp = ({
 
           <Input
             id="password"
+            name="password"
             type="password"
             className="mt-1"
             onChange={handleChange}

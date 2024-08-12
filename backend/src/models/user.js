@@ -4,9 +4,11 @@ import bcrypt from "bcrypt";
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: String },
+  picture: { type: String },
+  googleId: { type: String },
   createdAt: { type: Date, default: Date.now },
-  provider: { type: String },
+  provider: { type: String, enum: ["local", "google"], required: true },
   emailVerified: { type: Boolean, default: false },
   emailVerificationToken: { type: String },
   emailVerificationExpiration: { type: Date },

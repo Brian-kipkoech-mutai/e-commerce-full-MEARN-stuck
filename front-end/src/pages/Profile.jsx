@@ -4,19 +4,10 @@ import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Profile(props) {
-  const { isAuthenticated } = useContext(authContext);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-    }
-  }, []);
   return (
     <div>
-          <p>{isAuthenticated}</p>
-          <Trasition/>
+      <p className="text-3xl text-green-400">hhhhhhhhhhhhhhhhhhhhhome  good home</p>
+      <Trasition />
     </div>
   );
 }

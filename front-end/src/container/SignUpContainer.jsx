@@ -1,36 +1,28 @@
 import { useToast } from "@/components/ui/use-toast";
 import usePost from "@/hooks/usePost";
-
 import SignUp from "@/pages/SignUp";
-import { registerUser } from "@/services/authServices";
-import { useGoogleLogin } from "@react-oauth/google";
+import { gooleRegister, registerUser } from "@/services/authServices";
 import React, { useState } from "react";
 import ShowToast from "@/utils/ShowToast";
+import { useNavigate } from "react-router-dom";
+import useFormData from "@/hooks/useFormData";
 
 function SignUpContainer(props) {
-  const [formData, setFormData] = useState({});
-
-  const { data, error, postData, loading } = usePost(registerUser);
+  const { data, error, postData, loading } = usePost();
+  const { handleChange, formData } = useFormData();
   const { toast } = useToast();
-
+  const naviage = useNavigate();
+  data && naviage("/");
   ShowToast(toast, data, error);
 
-  const handleChange = ({ target }) => {
-    const { id, value } = target;
-    setFormData({
-      ...formData,
-      [id]: value,
-    });
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    postData(formData);
-  };
-  const handleGoogleSignup = useGoogleLogin({
-    onSuccess: (token) => console.log(token),
-    onError: (error) => log(error),
-  });
 
+    postData(formData, registerUser);
+  };
+  const handleGoogleSignup = (idToken) => {
+    postData({ idToken }, gooleRegister);
+  };
   return (
     <SignUp
       {...{

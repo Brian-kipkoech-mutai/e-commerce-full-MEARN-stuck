@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const usePost = (postFunction) => {
+const usePost = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setIsLoading] = useState(false);
@@ -10,11 +10,11 @@ const usePost = (postFunction) => {
     setIsLoading(false)
     }
 
-  const postData = async (userData) => {
+  const postData = async (userData,postFunction) => {
     try {
       resetDefault()
       setIsLoading(true);
-        
+          console.log(postFunction)
       const { data } = await postFunction(userData);
       console.log(data)
        

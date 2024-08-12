@@ -30,8 +30,8 @@ function Home(props) {
         </div>
       </section>
       <section>
-        <section className="w-full max-w-screen-lg mx-auto flex justify-center md:justify-between flex-wrap  items-center gap-4   py-28 ">
-          <section className=" w-full max-w-xs text-justify  lg:w-3/12  ">
+        <section className="w-full max-w-screen-lg px-8 md:mx-auto flex  md:justify-between flex-wrap  items-center gap-4   py-28 ">
+          <section className=" w-full max-w-xs text-justify  lg:w-3/12   ">
             <div className="flex flex-col gap-4">
               <section>
                 <Truck className="bg-gray-100  h-14 w-14 p-4 rounded-full "></Truck>
@@ -88,11 +88,13 @@ function Home(props) {
           Shop Now
         </p>
         <h2 className=" text-2xl font-semibold text-center">Best Selling</h2>
-        <section className=" flex gap-2 lg:gap-4 flex-wrap  justify-center pb-20 pt-10">
-          {[...Array(4)].map((el, key) => (
-            <CardContainer key={key} />
-          ))}
-        </section>
+        
+          <section className=" px-2 flex overflow-auto gap-2  max-w-screen-lg lg:mx-auto py-10 pb-20 lg:justify-between">
+            {[...Array(4)].map((el, key) => (
+              <CardContainer key={key} />
+            ))}
+          </section>
+        
       </section>
       <section className="   bg-gray-100  ">
         <div className="flex justify-between w-full  items-center mx-auto max-w-screen-lg pl-4">
@@ -149,7 +151,7 @@ function Home(props) {
           </div>
         </section>
       </section>
-      <Trasition/>
+      <Trasition />
     </div>
   );
 }

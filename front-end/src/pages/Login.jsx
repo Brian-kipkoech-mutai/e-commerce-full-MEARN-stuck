@@ -5,16 +5,31 @@ import { Link } from "react-router-dom";
 import Divider from "@/components/Divider";
 import Trasition from "@/components/Trasition";
 import { Toaster } from "@/components/ui/toaster";
-function Login({ handleChange, handleSubmit, loading, postData }) {
+import { GoogleLogin } from "@react-oauth/google";
+
+function Login({
+  handleChange,
+  loading,
+  handleGoogleLogin,
+  handleLogin,
+}) {
   return (
     <form
       className="max-w-xs mx-auto flex flex-col gap-4 py-8 "
-      onSubmit={(e) => handleSubmit(e, postData)}
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleLogin()
+      }}
     >
       <Toaster />
       <section>
         {" "}
-        <Button className="w-full">Continue With Google</Button>{" "}
+        <GoogleLogin
+          onSuccess={({ credential }) => handleGoogleLogin(credential)}
+          theme="filled_black"
+          size="large"
+          width={320}
+        ></GoogleLogin>
       </section>
       <Divider />
       <section className="flex flex-col gap-2">

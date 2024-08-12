@@ -9,3 +9,13 @@ export const resendEmailLink = async (token) =>
 
 export const login = async (userData) =>
   await axiosInstance.post(apiUrls.LOGIN, userData);
+
+export const checkAuth = async () =>
+  await axiosInstance.get(apiUrls.CHECK_AUTH);
+
+export const gooleRegister = async (googleToken) =>
+  await axiosInstance.post(apiUrls.GOOGLE_REGISTER, googleToken);
+
+export const gooleLogin= async (googleToken) =>
+  await axiosInstance.post(apiUrls.GOOGLE_LOGIN, googleToken);
+

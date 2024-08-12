@@ -12,10 +12,10 @@ function Footer() {
   return (
     <footer className="">
       <section className="bg-gray-100 px-2 py-16">
-        <section className="bg-gray-100 flex flex-col  space-y-2 px-2 mx-auto max-w-screen-lg lg:flex-row lg:justify-between">
+        <section className="bg-gray-100 flex flex-row flex-wrap sm:flex-nowrap gap-y-4 gap-x-2  space-y-2 px-2 mx-auto max-w-screen-lg  lg:justify-between">
           <div className="space-y-2">
             <h2 className=" text-2xl font-bold">Join Our Newsletter</h2>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground sm:max-w-[60%] lg:max-w-full" >
               We love to surprise our subscribers with occasional gifts.
             </p>
           </div>

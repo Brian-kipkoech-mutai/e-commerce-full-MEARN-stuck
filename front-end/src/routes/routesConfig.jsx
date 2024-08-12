@@ -1,6 +1,8 @@
 import DetailSection from "@/components/DetailSection";
 import Featured from "@/components/Featured";
 import Latest from "@/components/Latest";
+import ProtectedRoutes from "@/components/ProtectedRoutes";
+import QuestRoutes from "@/components/QuestRoutes";
 import ReviewSection from "@/components/ReviewSection";
 import LoginContainer from "@/container/LoginContainer";
 import SignUpContainer from "@/container/SignUpContainer";
@@ -39,7 +41,8 @@ function RoutesConfig() {
         },
         {
           path: "login",
-          element: <LoginContainer />,
+          element: <QuestRoutes />,
+          children:[{path:"",element:<LoginContainer/>}]
         },
         {
           path: "signup",
@@ -47,7 +50,8 @@ function RoutesConfig() {
         },
         {
           path: "profile",
-          element: <Profile />,
+          element: <ProtectedRoutes />,
+          children: [{ path: "", element: <Profile /> }],
         },
         {
           path: "forgotpassword",

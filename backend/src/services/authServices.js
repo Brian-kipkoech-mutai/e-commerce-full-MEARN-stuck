@@ -16,6 +16,7 @@ export const registrationService = async ({ email, name, password }) => {
     email,
     emailVerificationToken,
     emailVerificationExpiration,
+    provider: "local",
   });
   await user.setPassword(password);
   await user.save();
@@ -64,4 +65,60 @@ export const loginService = async ({ email, password }) => {
     //correct  simplify tomorrow
     (await new User({ password: user.password }).comparePassword(password));
   return { user, isPasswordSame };
+};
+
+export const googleRegisterServices = async ({
+  googleId,
+  email,
+  name,
+  picture,
+}) => {
+  const { email: existingEmail } = (await User.findOne({ googleId })) || {};
+
+  if (existingEmail) {
+    if (existingEmail === email) {
+      const error = new Error(
+        "This Google account is already associated with an existing account."
+      );
+      error.name = "GoogleAccountAlreadyExists";
+      throw error;
+    } else {
+      const error = new Error(
+        "This Google account is linked to a different email address."
+      );
+      error.name = "GoogleAccountLinkedToDifferentEmail";
+      throw error;
+    }
+  }
+  const existingUser = await User.findOne({ email, provider: "local" });
+  if (existingUser) {
+     const error = new Error(
+       "An account with this email already exists. Please log in using your email."
+     );
+     error.name = "UserExists";
+     throw error;
+  }
+
+  const user = new User({
+    googleId,
+    email,
+    name,
+    picture,
+    emailVerified: true,
+    provider: "google",
+  });
+  const { _id: id } = await user.save();
+  return { id };
+};
+
+export const googleLoginServices = async ({ googleId }) => {
+  const { _id: id } = await User.findOne({ googleId })||{};
+
+  if (!id) {
+    const error= new Error(" you don't have an  account please register")
+    error.name = "noUser";
+    throw error;
+  }
+
+  return { id };
 };
