@@ -6,6 +6,7 @@ import Featured from "@/assets/images/pexels-leticiacurveloph-26093505-removebg-
 import CardContainer from "@/components/card";
 import { NavLink, Outlet } from "react-router-dom";
 import Trasition from "@/components/Trasition";
+import CardBox from "@/components/cardBox";
 
 function Home(props) {
   return (
@@ -89,11 +90,7 @@ function Home(props) {
         </p>
         <h2 className=" text-2xl font-semibold text-center">Best Selling</h2>
         
-          <section className=" px-2 flex overflow-auto gap-2  max-w-screen-lg lg:mx-auto py-10 pb-20 lg:justify-between">
-            {[...Array(4)].map((el, key) => (
-              <CardContainer key={key} />
-            ))}
-          </section>
+           <CardBox/>
         
       </section>
       <section className="   bg-gray-100  ">

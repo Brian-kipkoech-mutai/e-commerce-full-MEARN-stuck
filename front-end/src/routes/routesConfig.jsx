@@ -23,10 +23,10 @@ function RoutesConfig() {
       element: <Root />,
       children: [
         {
-          path: "/",
+          path: "",
           element: <Home />,
           children: [
-            { path: "/", element: <Featured /> },
+            { path: "", element: <Featured /> },
             { path: "featured", element: <Featured /> },
             { path: "latest", element: <Latest /> },
           ],

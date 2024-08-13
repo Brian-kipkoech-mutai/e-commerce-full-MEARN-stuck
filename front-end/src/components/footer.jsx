@@ -15,7 +15,7 @@ function Footer() {
         <section className="bg-gray-100 flex flex-row flex-wrap sm:flex-nowrap gap-y-4 gap-x-2  space-y-2 px-2 mx-auto max-w-screen-lg  lg:justify-between">
           <div className="space-y-2">
             <h2 className=" text-2xl font-bold">Join Our Newsletter</h2>
-            <p className="text-muted-foreground sm:max-w-[60%] lg:max-w-full" >
+            <p className="text-muted-foreground sm:max-w-[60%] lg:max-w-full">
               We love to surprise our subscribers with occasional gifts.
             </p>
           </div>
@@ -27,7 +27,7 @@ function Footer() {
         </section>
       </section>
       <section className="py-10 ">
-        <div className=" w-80 md:w-full max-w-screen-lg mx-auto ">
+        <div className="  sm:w-full sm:max-w-screen-lg mx-auto  px-4  ">
           <div className="px-2 flex  justify-between flex-wrap gap-5 gap-y-8 ">
             <div className="space-y-3   ">
               <section className="flex gap-2 items-center ">
@@ -50,8 +50,8 @@ function Footer() {
                 </Link>
               </section>
             </div>
-            <div className="">
-              <div className=" flex space-x-8 text-muted-foreground ">
+            <div className="flex-1 sm:flex-none ">
+              <div className=" flex   justify-between space-x-8 text-muted-foreground    ">
                 <section className="flex flex-col gap-4 ">
                   <h2 className="font-semibold ">Support</h2>
                   <div className=" flex flex-col gap-3  text-sm">

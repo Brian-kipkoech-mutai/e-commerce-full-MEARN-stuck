@@ -16,6 +16,7 @@ import { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Trasition from "@/components/Trasition";
 import classNames from "classnames";
+import CardBox from "@/components/cardBox";
 
 const Product = () => {
   const tapVariance = { scale: 0.9 };
@@ -242,7 +243,7 @@ const Product = () => {
                 SIMILAR PRODUCTS
               </p>
             </div>
-            <Latest />
+            <CardBox/>
           </section>
         </section>
       </section>

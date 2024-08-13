@@ -2,11 +2,13 @@ import Trasition from "@/components/Trasition";
 import { authContext } from "@/context/AuthContext";
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import cardimage from "../assets/images/pexels-mart-production-9558581.jpg";
+import CardBox from "@/components/cardBox";
 
 function Profile(props) {
   return (
-    <div>
-      <p className="text-3xl text-green-400">hhhhhhhhhhhhhhhhhhhhhome  good home</p>
+    <div className="">
+       <CardBox/>
       <Trasition />
     </div>
   );
