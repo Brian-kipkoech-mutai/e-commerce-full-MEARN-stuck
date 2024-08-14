@@ -4,10 +4,12 @@ import Latest from "@/components/Latest";
 import ProtectedRoutes from "@/components/ProtectedRoutes";
 import QuestRoutes from "@/components/QuestRoutes";
 import ReviewSection from "@/components/ReviewSection";
+import ListingContainer from "@/container/ListingContainer";
 import LoginContainer from "@/container/LoginContainer";
 import SignUpContainer from "@/container/SignUpContainer";
 import ForgotPassword from "@/pages/ForgotPassword";
 import Home from "@/pages/home";
+import Listing from "@/pages/Listing";
 import Product from "@/pages/Product";
 import Profile from "@/pages/Profile";
 import Root from "@/pages/root";
@@ -61,6 +63,11 @@ function RoutesConfig() {
           path: "verification/:status",
           element: <Verification />,
         },
+        {
+          path: "search",
+          element: <ListingContainer/>
+        
+        }
       ],
     },
   ]);

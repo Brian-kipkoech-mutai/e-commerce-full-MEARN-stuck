@@ -10,7 +10,6 @@ import {
 import { Heart, Share2, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import Latest from "@/components/Latest";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";

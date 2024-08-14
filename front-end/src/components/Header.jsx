@@ -63,13 +63,13 @@ function Header() {
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="flex flex-col gap-2 p-2 pr-8 text-gray-600   ">
                   <NavigationMenuLink className="hover:text-gray-800 cursor-pointer">
-                    men
+                    <NavLink to={"/search"}> men</NavLink>
                   </NavigationMenuLink>
                   <NavigationMenuLink className="hover:text-gray-800 cursor-pointer">
-                    women
+                    <NavLink to={"/search"}>women</NavLink>
                   </NavigationMenuLink>
                   <NavigationMenuLink className="hover:text-gray-800 cursor-pointer">
-                    Children
+                    <NavLink to={"/search"}>Children</NavLink>
                   </NavigationMenuLink>
                 </NavigationMenuContent>
               </NavigationMenuItem>

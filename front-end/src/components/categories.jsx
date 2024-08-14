@@ -75,6 +75,7 @@ function Categories() {
           whileTap={tapVariant}
         >
           <NavLink
+             to={'/search'}
             className={({ isActive }) =>
               isActive ? "text-gray-800" : "text-muted-foreground"
             }
