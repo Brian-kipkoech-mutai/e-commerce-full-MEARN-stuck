@@ -33,6 +33,7 @@ function ListingContainer() {
 
     setSearchParams(searchQueries);
   };
+    
 
   return <Listing {...{ handleSelect, selectedValues }} />;
 }

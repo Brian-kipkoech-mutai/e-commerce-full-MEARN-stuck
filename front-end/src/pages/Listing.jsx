@@ -10,7 +10,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-import { FilterIcon, FilterXIcon, XIcon } from "lucide-react";
+import {  FilterXIcon,  } from "lucide-react";
 import FilterCategory from "@/components/FilterCategory";
 import { filters } from "@/utils/filterData";
 
@@ -28,12 +28,12 @@ function Listing({ handleSelect, selectedValues }) {
             </Button>
           </DrawerClose>
           <DrawerHeader>
-            {/* <DrawerTitle>filters</DrawerTitle> */}
+            <DrawerTitle className="sr-only">Filters</DrawerTitle>
             <DrawerDescription>
               <div className="space-y-2 max-h-svh overflow-scroll">
                 {filters.map(({ name, options }) => (
                   <FilterCategory
-                    {...{ name, options, handleSelect, selectedValues }}
+                    {...{name, options, handleSelect, selectedValues }}
                   />
                 ))}
               </div>
