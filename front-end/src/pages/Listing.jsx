@@ -1,5 +1,15 @@
 import React from "react";
 import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+
+import {
   Drawer,
   DrawerClose,
   DrawerContent,
@@ -16,7 +26,7 @@ import { filters } from "@/utils/filterData";
 
 function Listing({ handleSelect, selectedValues }) {
   return (
-    <div>
+    <div className="space-y-5">
       <Drawer>
         <DrawerTrigger className="flex font-semibold gap-1 border p-1 px-2 rounded bg-gray-800 text-white ">
           filter <FilterXIcon className="w-4" />
@@ -33,7 +43,7 @@ function Listing({ handleSelect, selectedValues }) {
               <div className="space-y-2 max-h-svh overflow-scroll">
                 {filters.map(({ name, options }) => (
                   <FilterCategory
-                    {...{name, options, handleSelect, selectedValues }}
+                    {...{ name, options, handleSelect, selectedValues }}
                   />
                 ))}
               </div>
@@ -44,6 +54,27 @@ function Listing({ handleSelect, selectedValues }) {
           </DrawerFooter> */}
         </DrawerContent>
       </Drawer>
+
+      <Pagination className="border w-fit rounded">
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious href="#" />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#">1</PaginationLink>
+          </PaginationItem>
+
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#">400</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext href="#" />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </div>
   );
 }

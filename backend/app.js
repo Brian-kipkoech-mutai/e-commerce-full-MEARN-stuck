@@ -5,6 +5,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
+import { productsRoutes } from "./src/routes/productRoutes.js";
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -18,10 +19,11 @@ app.use(
     credentials: true,
   })
 );
+
 app.use(cookieParser());
 app.use(express.json());
 app.use((req, res, next) => {
-  console.log(req.method, req.path, req.cookies.auth_token);
+  console.log(req.method, req.path, req.hostname);
   next();
 });
 
@@ -31,13 +33,14 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //api routes 
 app.use("/api/auth", authRoutes);
+app.use('/api/products/',productsRoutes);
 
 // serve  index .html for any request
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "public", "index.html"));
 });
 
-//error hadnling middllware
+//error handling middllware
 app.use((error, req, res, next) => {
   console.error(error.message);
   console.error(error.stack);

@@ -4,7 +4,7 @@ import { ArrowRight, Medal, ShieldCheck, Truck } from "lucide-react";
 import React from "react";
 import Featured from "@/assets/images/pexels-leticiacurveloph-26093505-removebg-preview.png";
 import CardContainer from "@/components/card";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import Trasition from "@/components/Trasition";
 import CardBox from "@/components/cardBox";
 
@@ -23,10 +23,12 @@ function Home(props) {
             </p>
           </div>
           <div>
-            <Button className="py-6 px-8 flex  gap-2 group">
-              View Collection{" "}
-              <ArrowRight className="group-hover:translate-x-4 transition-transform duration-200 "></ArrowRight>
-            </Button>
+            <Link to={"/search"}>
+              <Button className="py-6 px-8 flex  gap-2 group">
+                View Collection{" "}
+                <ArrowRight className="group-hover:translate-x-4 transition-transform duration-200 "></ArrowRight>
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -89,9 +91,8 @@ function Home(props) {
           Shop Now
         </p>
         <h2 className=" text-2xl font-semibold text-center">Best Selling</h2>
-        
-           <CardBox/>
-        
+
+        <CardBox />
       </section>
       <section className="   bg-gray-100  ">
         <div className="flex justify-between w-full  items-center mx-auto max-w-screen-lg pl-4">
