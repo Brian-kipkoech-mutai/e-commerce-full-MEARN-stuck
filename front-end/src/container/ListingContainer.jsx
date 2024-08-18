@@ -1,5 +1,6 @@
 import Listing from "@/pages/Listing";
 import { searchProducts } from "@/services/productServices";
+import advacedFilter from "@/utils/advacedFilter";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React, { useEffect, useMemo, useState } from "react";
 import { useInView } from "react-intersection-observer";
@@ -10,7 +11,7 @@ function ListingContainer() {
   const [selectedValues, setSelectedValues] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
   const { ref, inView } = useInView();
-  const memoisedFilter = useMemo(()=>filters, [filters]);
+  const memoisedFilter = useMemo(() => filters, [filters]);
 
   const { status, data, isFetchingNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ["search", memoisedFilter],
@@ -29,13 +30,12 @@ function ListingContainer() {
 
     if (value in updatedValues) {
       delete updatedValues[value];
-
       updatedFilters[name] = updatedFilters[name].filter((v) => v !== value);
-
       if (updatedFilters[name].length === 0) delete updatedFilters[name];
     } else {
+      //this  is util function to hadle the edge case  for  star-rating &&  price-rating
+      advacedFilter({ name, updatedFilters, updatedValues, value });
       updatedValues[value] = value;
-
       if (name in updatedFilters) updatedFilters[name].push(value);
       else updatedFilters[name] = [value];
     }

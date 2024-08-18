@@ -1,5 +1,3 @@
-
-
 export const filters = [
   {
     name: "Category",
@@ -34,19 +32,19 @@ export const filters = [
   {
     name: "Price Range",
     options: [
-      { label: "Under $50", value: "under-50" },
+      { label: "Under $50", value: "-50" },
       { label: "$50 to $100", value: "50-100" },
       { label: "$100 to $500", value: "100-500" },
-      { label: "Above $500", value: "above-500" },
+      { label: "Above $500", value: "500-" },
     ],
   },
   {
     name: "Rating",
     options: [
-      { label: "4 Stars & Up", value: "4-stars-up" },
-      { label: "3 Stars & Up", value: "3-stars-up" },
-      { label: "2 Stars & Up", value: "2-stars-up" },
-      { label: "1 Star & Up", value: "1-star-up" },
+      { label: "4 Stars & Up", value: "4" },
+      { label: "3 Stars & Up", value: "3" },
+      { label: "2 Stars & Up", value: "2" },
+      { label: "1 Star & Up", value: "1" },
     ],
   },
   {
