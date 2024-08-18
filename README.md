@@ -1,1 +1,1 @@
-# e-commerce-full-MEARN-stuck
+# e-commerce-full-MEARN-stack
