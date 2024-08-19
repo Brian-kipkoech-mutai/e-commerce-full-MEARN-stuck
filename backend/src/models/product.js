@@ -6,7 +6,7 @@ const productSchema = new Schema(
     gender: { type: String, enum: ["Men", "Women", "Unisex"], required: true },
     price: { type: Number, required: true },
     category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
-    brand: { type: String, required: true },
+    brand: { type: Schema.Types.ObjectId, ref:"Brand", required: true },
     stock: { type: Number, required: true },
     ratingCount: { type: Number, required: true, default: 0 },
     averageCount: { type: Number, required: true, default: 0 },
