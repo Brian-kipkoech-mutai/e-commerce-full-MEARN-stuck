@@ -1,7 +1,7 @@
 import Listing from "@/pages/Listing";
-import { searchProducts } from "@/services/productServices";
+import { getFilters, searchProducts } from "@/services/productServices";
 import advacedFilter from "@/utils/advacedFilter";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import React, { useEffect, useMemo, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { useSearchParams } from "react-router-dom";
@@ -20,6 +20,17 @@ function ListingContainer() {
     initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage.nextCusor,
   });
+  // the   filtersData  is from the DB  not  to be  confused with  filters   in frontend ;
+  const {
+    data: filtersData,
+    error: filtersError,
+    isFetching: isFetchingFilters,
+  } = useQuery({
+    queryKey: ["filters"],
+    queryFn: getFilters,
+    staleTime: Infinity,
+  });
+
   useEffect(() => {
     if (inView) fetchNextPage();
   }, [inView, fetchNextPage]);
@@ -59,6 +70,9 @@ function ListingContainer() {
         data,
         isFetchingNextPage,
         status,
+        filtersData,
+        filtersError,
+        isFetchingFilters,
       }}
     />
   );

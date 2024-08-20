@@ -10,7 +10,7 @@ const filters = {
 };
 const getEnums = (schema, path) => {
   const enumPath = schema.path(path);
-  return enumPath && enumPath.enumValues ? enumPath.enumValues : [];
+  return enumPath && enumPath.enumValues ? enumPath.enumValues : ["Small", "Medium", "Large", "X-large"];
 };
 const refreshFiltersInDB = async () => {
   try {
@@ -27,24 +27,23 @@ const refreshFiltersInDB = async () => {
     }));
 
     ["status", "size", "gender"].forEach((path) => {
+    
       filters[path] = getEnums(Product.schema, path);
     });
     const colors = new Set();
-    const imageDocs = await Image.find({}, "image");
-    imageDocs.forEach(({ imageData }) => {
-      Object.keys(imageData).forEach((color) => colors.add(color));
+    const imageDocs = await Image.find({}, "image").lean();
+    imageDocs.forEach(({ image }) => {
+        
+      Object.keys(image).forEach((color) => colors.add(color));
     });
 
     filters.colors = [...colors];
-    const storedFilters = await Filter.findOne();
-    if (!storedFilters) {
-      await Filter.create(filters);
-    } else {
-      for (const [key, _] of Object.entries(storedFilters)) {
-        storedFilters[key] = filters[key];
-      }
-      await storedFilters.save();
-    }
+    console.log('filtersssss', filters);
+    await Filter.findOneAndUpdate(
+     {},
+     { $set: filters },
+     { new: true, upsert: true }
+   );
   } catch (error) {
     console.log(error.message);
     throw error;

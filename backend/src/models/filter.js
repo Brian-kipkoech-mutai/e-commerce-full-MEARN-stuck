@@ -8,14 +8,14 @@ const filterSchema = new Schema({
   },
   ratings: { type: [Number], enum: [1, 2, 3, 4, 5] },
   categories: {
-    type: [String],
+    type: [Map],
     validate: {
       validator: (categories) => categories.length > 0,
       message: "there must be atleast one category",
     },
   },
   brands: {
-    type: [String],
+    type: [Map],
     validate: {
       validator: (brands) => brands.length > 0,
       message: "there must be atleast one brand",
@@ -28,14 +28,14 @@ const filterSchema = new Schema({
       message: "there must be atleast one status",
     },
   },
-  sizes: {
+  size: {
     type: [String],
     validate: {
       validator: (sizes) => sizes.length > 0,
       message: "there must be atleast one size selected",
     },
   },
-  genders: {
+  gender: {
     type: [String],
     validate: {
       validator: (genders) => genders.length > 0,

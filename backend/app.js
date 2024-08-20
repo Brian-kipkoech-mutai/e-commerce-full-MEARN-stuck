@@ -6,6 +6,8 @@ import cookieParser from "cookie-parser";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import { productsRoutes } from "./src/routes/productRoutes.js";
+import { adminRoutes } from "./src/routes/adminRoutes.js";
+ 
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -26,14 +28,15 @@ app.use((req, res, next) => {
   console.log(req.method, req.path, req.hostname);
   next();
 });
-
+ 
  connectDB();
 //serve  static  content
 app.use(express.static(path.join(__dirname, "public")));
 
 //api routes 
 app.use("/api/auth", authRoutes);
-app.use('/api/products/',productsRoutes);
+app.use('/api/products/', productsRoutes);
+app.use('/api/admin',adminRoutes)
 
 // serve  index .html for any request
 app.get("*", (req, res) => {

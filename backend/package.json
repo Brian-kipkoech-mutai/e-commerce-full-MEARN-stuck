@@ -11,6 +11,7 @@
   "author": "Brian",
   "license": "MIT",
   "dependencies": {
+    "@faker-js/faker": "^8.4.1",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
@@ -26,5 +27,8 @@
     "nodemailer": "^6.9.14",
     "tr46": "^5.0.0",
     "whatwg-url": "^14.0.0"
+  },
+  "devDependencies": {
+    "@types/faker": "^6.6.8"
   }
 }

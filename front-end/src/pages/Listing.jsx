@@ -20,11 +20,23 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-import {  FilterXIcon,  } from "lucide-react";
+import { FilterXIcon } from "lucide-react";
 import FilterCategory from "@/components/FilterCategory";
 import { filters } from "@/utils/filterData";
+import { isFunction } from "util";
+import Loading from "@/components/Loading";
 
-function Listing({ handleSelect, selectedValues }) {
+function Listing({
+  handleSelect,
+  selectedValues,
+  ref,
+  data,
+  isFetchingNextPage,
+  status,
+  filtersData,
+  filtersError,
+  isFetchingFilters,
+}) {
   return (
     <div className="space-y-5">
       <Drawer>
@@ -40,13 +52,17 @@ function Listing({ handleSelect, selectedValues }) {
           <DrawerHeader>
             <DrawerTitle className="sr-only">Filters</DrawerTitle>
             <DrawerDescription>
-              <div className="space-y-2 max-h-svh overflow-scroll">
-                {filters.map(({ name, options }) => (
-                  <FilterCategory
-                    {...{ name, options, handleSelect, selectedValues }}
-                  />
-                ))}
-              </div>
+              {isFetchingFilters ? (
+                <Loading message={"loading hold on"} />
+              ) : (
+                <div className="space-y-2 max-h-svh overflow-scroll">
+                  {filtersData.map((set) => (
+                    <FilterCategory
+                      {...{ set, handleSelect, selectedValues }}
+                    />
+                  ))}
+                </div>
+              )}
             </DrawerDescription>
           </DrawerHeader>
           {/* <DrawerFooter>
