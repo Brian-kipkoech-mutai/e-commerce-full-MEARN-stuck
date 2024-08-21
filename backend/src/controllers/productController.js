@@ -15,12 +15,9 @@ export const search = async (req, res, next) => {
 
 export const filters = async (req, res, next) => {
   try {
-    const { _id, ...rest } = await getFilterServices();
-    const filters = [];
-    for (const [key, value] of Object.entries(rest)) {
-      filters.push({ [key]: value });
-    }
-    res.status(200).json(filters);
+    const filters= await getFilterServices();
+    const resFilters = filters.map(({ _id,__v, ...rest }) => ({ ...rest }));
+    res.status(200).json(resFilters);
   } catch (error) {
     next(error);
   }

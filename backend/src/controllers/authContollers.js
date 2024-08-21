@@ -59,12 +59,9 @@ export const resendEmailVerificationLink = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const userData = req.body;
-    const {
-      user: { _id: id },
-      isPasswordSame,
-    } = await loginService(userData);
+    const { user, isPasswordSame } = await loginService(userData);
 
-    if (!id) {
+    if (!user) {
       res
         .status(401)
         .json({ message: "User dose not exist try signing up instead" });
@@ -73,7 +70,7 @@ export const login = async (req, res, next) => {
       res.status(401).json({ message: "password is  incorrect" });
     }
 
-    sendCookie(res, id);
+    sendCookie(res, user._id);
   } catch (error) {
     next(error);
   }

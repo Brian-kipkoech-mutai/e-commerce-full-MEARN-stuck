@@ -92,11 +92,11 @@ export const googleRegisterServices = async ({
   }
   const existingUser = await User.findOne({ email, provider: "local" });
   if (existingUser) {
-     const error = new Error(
-       "An account with this email already exists. Please log in using your email."
-     );
-     error.name = "UserExists";
-     throw error;
+    const error = new Error(
+      "An account with this email already exists. Please log in using your email."
+    );
+    error.name = "UserExists";
+    throw error;
   }
 
   const user = new User({
@@ -112,10 +112,10 @@ export const googleRegisterServices = async ({
 };
 
 export const googleLoginServices = async ({ googleId }) => {
-  const { _id: id } = await User.findOne({ googleId })||{};
+  const { _id: id } = (await User.findOne({ googleId })) || {};
 
   if (!id) {
-    const error= new Error(" you don't have an  account please register")
+    const error = new Error(" you don't have an  account please register");
     error.name = "noUser";
     throw error;
   }

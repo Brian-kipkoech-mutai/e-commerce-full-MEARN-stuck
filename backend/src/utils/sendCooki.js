@@ -11,8 +11,8 @@ const sendCookie = (res, id) => {
     .cookie("auth_token", token, {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       httpOnly: true,
-      secure: ifproduction,
-      sameSite: "Strict",
+      secure: false,
+      sameSite: ifproduction ? "Strict" : "Lax",
     })
     .status(200)
     .json({ message: "Login successful" });

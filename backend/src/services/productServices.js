@@ -6,4 +6,4 @@ export const searchServices = async ({ query }) => {
   console.log(mongoQuery);
 };
 
-export const getFilterServices = async () => Filter.findOne().lean();
+export const getFilterServices = async () => Filter.find().lean();

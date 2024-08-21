@@ -14,22 +14,23 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 app.use(express.static(path.resolve(__dirname, "public")));
+app.use((req, res, next) => {
+  console.log(req.method, req.path, req.hostname);
+  next();
+});
+ 
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "http://192.168.1.101:5001"],
     credentials: true,
   })
 );
 
 app.use(cookieParser());
 app.use(express.json());
-app.use((req, res, next) => {
-  console.log(req.method, req.path, req.hostname);
-  next();
-});
  
- connectDB();
+connectDB();
 //serve  static  content
 app.use(express.static(path.join(__dirname, "public")));
 
