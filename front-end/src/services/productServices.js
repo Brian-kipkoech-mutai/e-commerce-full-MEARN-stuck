@@ -3,7 +3,7 @@ import { apiUrls } from "@/API/endpoints";
 
 export const searchProducts = async (pageParam, searchParams) =>
   await axiosInstance.get(
-    `${apiUrls.GET_SEARCH_PRODUCTS}?${searchParams}&cusor=${pageParam}`
+    `${apiUrls.GET_SEARCH_PRODUCTS}?${searchParams}&page=${pageParam}`
   );
 
 export const getFilters = async () =>

@@ -6,13 +6,13 @@ import { ShoppingCart } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
 
-function CardContainer(props) {
+function CardContainer({ averageCount, images, name, price, status, id }) {
   return (
     <div className=" rounded-lg overflow-hidden border shadow-lg w-[45%] max-w-56  group  flex-shrink-0 ">
       <div className="relative" style={{ paddingBottom: "100%" }}>
         <img
-          src={placeHolderImg}
-          alt=""
+          src={Object.values(images.image)[0]}
+          alt={images.alt}
           srcset=""
           className="w-full h-full absolute object-cover"
         />
@@ -31,16 +31,16 @@ function CardContainer(props) {
           </section>
         </section>
       </div>
-      <Link className="block" to={"/product/details"}>
+      <Link className="block" to={`/product/details?=${id}`}>
         <div className="p-2">
           <div className="flex-col gap-3 w-full items-start      rounded-md space-y-2 ">
-            <h2 className="font-semibold  truncate">Classic Monochrome Tees</h2>
+            <h2 className="font-semibold  truncate">{name}</h2>
             <div className="flex gap-4 w-full">
               <span className="py-1 px-3 rounded-full border  uppercase text-xs font-semibold text-muted-foreground  ">
-                in stock
+                {status}
               </span>{" "}
               <span className="text-muted-foreground font-semibold">
-                $35.00
+                ${price}
               </span>
             </div>
           </div>

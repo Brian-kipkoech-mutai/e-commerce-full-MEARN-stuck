@@ -10,6 +10,6 @@ export const apiUrls = {
   GOOGLE_LOGIN: "/auth/google/login",
   //products  endpoints 
   GET_SEARCH_PRODUCTS: '/products/search',
-  GET_PRODUCTS_FILTERS:'/product/filters'
+  GET_PRODUCTS_FILTERS:'/products/filters'
 
 };

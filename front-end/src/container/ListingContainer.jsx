@@ -2,8 +2,8 @@ import Listing from "@/pages/Listing";
 import { getFilters, searchProducts } from "@/services/productServices";
 import advacedFilter from "@/utils/advacedFilter";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import React, { useEffect, useMemo, useState } from "react";
-import { useInView } from "react-intersection-observer";
+import React, {  useEffect, useMemo, useState } from "react";
+import { InView, useInView } from "react-intersection-observer";
 import { useSearchParams } from "react-router-dom";
 
 function ListingContainer() {
@@ -18,7 +18,7 @@ function ListingContainer() {
     queryFn: ({ pageParam }) =>
       searchProducts(pageParam, searchParams.toString()),
     initialPageParam: 0,
-    getNextPageParam: (lastPage) => lastPage.nextCusor,
+    getNextPageParam: (lastPage) => lastPage.data.nextPage,
   });
   // the   filtersData  is from the DB  not  to be  confused with  filters   in frontend ;
   const {
@@ -32,7 +32,9 @@ function ListingContainer() {
   });
 
   useEffect(() => {
-    if (inView) fetchNextPage();
+    console.log('cosole',InView)
+     fetchNextPage();
+
   }, [inView, fetchNextPage]);
 
   const handleSelect = ({ name, value }) => {
@@ -66,7 +68,6 @@ function ListingContainer() {
       {...{
         handleSelect,
         selectedValues,
-        ref,
         data,
         isFetchingNextPage,
         status,
@@ -74,6 +75,7 @@ function ListingContainer() {
         filtersError,
         isFetchingFilters,
       }}
+      ref={ref}
     />
   );
 }

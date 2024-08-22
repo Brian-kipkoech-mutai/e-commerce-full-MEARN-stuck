@@ -6,8 +6,8 @@ import {
 export const search = async (req, res, next) => {
   try {
     const { query } = req;
-    await searchServices({ query });
-    return res.status(200).json(req.query);
+    const { populated: products, nextPage } = await searchServices(query);
+    return res.status(200).json({ products, nextPage });
   } catch (error) {
     next(error);
   }
@@ -15,8 +15,8 @@ export const search = async (req, res, next) => {
 
 export const filters = async (req, res, next) => {
   try {
-    const filters= await getFilterServices();
-    const resFilters = filters.map(({ _id,__v, ...rest }) => ({ ...rest }));
+    const filters = await getFilterServices();
+    const resFilters = filters.map(({ _id, __v, ...rest }) => ({ ...rest }));
     res.status(200).json(resFilters);
   } catch (error) {
     next(error);
