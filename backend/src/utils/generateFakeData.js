@@ -9,9 +9,8 @@ import { hash } from "bcrypt";
 
 const generateFakeData = async () => {
   try {
-      console.log("initiatiating fake  syntetic data generation");
-      
-    
+    console.log("initiatiating fake  syntetic data generation");
+
     // Generating random users
     const usersIds = await Promise.all(
       Array.from({ length: 200 }).map(async () => {
@@ -38,10 +37,10 @@ const generateFakeData = async () => {
         return categoryId;
       })
     );
-
+     console.log('created  catgeories' ,categories)
     // Generating brands
     const brands = await Promise.all(
-      Array.from({ length: 10 }).map(async () => {
+      Array.from({ length: 5 }).map(async () => {
         const { _id: brandId } = await Brand.create({
           name: faker.company.name(),
         });
@@ -60,6 +59,7 @@ const generateFakeData = async () => {
           brand: faker.helpers.arrayElement(brands),
           stock: faker.number.int({ min: 0, max: 100 }),
           ratingCount: faker.number.int({ min: 0, max: 100 }),
+          avatar: faker.image.urlLoremFlickr(),
           averageCount: faker.number.int({
             min: 1,
             max: 5,

@@ -22,7 +22,11 @@ app.use((req, res, next) => {
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://192.168.1.101:5001"],
+    origin: [
+      "http://localhost:5173",
+      "http://192.168.1.101:5001",
+      "http://192.168.1.101:5173",
+    ],
     credentials: true,
   })
 );
