@@ -6,13 +6,14 @@ import { ShoppingCart } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
 
-function CardContainer({ averageCount, images, name, price, status, id }) {
+function CardContainer({ price, name, status, image, id }) {
   return (
     <div className=" rounded-lg overflow-hidden border shadow-lg w-[45%] max-w-56  group  flex-shrink-0 ">
       <div className="relative" style={{ paddingBottom: "100%" }}>
         <img
-          src={Object.values(images.image)[0]}
-          alt={images.alt}
+          src={image}
+          lazy
+          alt={"image failed to load"}
           srcset=""
           className="w-full h-full absolute object-cover"
         />
@@ -35,7 +36,7 @@ function CardContainer({ averageCount, images, name, price, status, id }) {
         <div className="p-2">
           <div className="flex-col gap-3 w-full items-start      rounded-md space-y-2 ">
             <h2 className="font-semibold  truncate">{name}</h2>
-            <div className="flex gap-4 w-full">
+            <div className="flex  justify-between w-full">
               <span className="py-1 px-3 rounded-full border  uppercase text-xs font-semibold text-muted-foreground  ">
                 {status}
               </span>{" "}

@@ -2,7 +2,7 @@ import Listing from "@/pages/Listing";
 import { getFilters, searchProducts } from "@/services/productServices";
 import advacedFilter from "@/utils/advacedFilter";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import React, {  useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { InView, useInView } from "react-intersection-observer";
 import { useSearchParams } from "react-router-dom";
 
@@ -32,9 +32,7 @@ function ListingContainer() {
   });
 
   useEffect(() => {
-    console.log('cosole',InView)
-     fetchNextPage();
-
+    if (inView) fetchNextPage();
   }, [inView, fetchNextPage]);
 
   const handleSelect = ({ name, value }) => {
@@ -74,6 +72,7 @@ function ListingContainer() {
         filtersData,
         filtersError,
         isFetchingFilters,
+         
       }}
       ref={ref}
     />

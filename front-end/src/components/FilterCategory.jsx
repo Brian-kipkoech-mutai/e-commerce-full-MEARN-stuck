@@ -2,8 +2,7 @@ import classNames from "classnames";
 import { XIcon } from "lucide-react";
 import React from "react";
 
-function FilterCategory({ name,options, handleSelect, selectedValues }) {
-
+function FilterCategory({ name, options, handleSelect, selectedValues }) {
   return (
     <section className="">
       <h2 className="font-semibold text-gray-800 mb-1">{name}</h2>

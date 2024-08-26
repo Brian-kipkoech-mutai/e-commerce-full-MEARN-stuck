@@ -1,5 +1,7 @@
+import BestSelling from "@/components/BestSelling";
 import DetailSection from "@/components/DetailSection";
 import Featured from "@/components/Featured";
+import LatestProducts from "@/components/Latest";
 import Latest from "@/components/Latest";
 import ProtectedRoutes from "@/components/ProtectedRoutes";
 import QuestRoutes from "@/components/QuestRoutes";
@@ -9,7 +11,6 @@ import LoginContainer from "@/container/LoginContainer";
 import SignUpContainer from "@/container/SignUpContainer";
 import ForgotPassword from "@/pages/ForgotPassword";
 import Home from "@/pages/home";
-import Listing from "@/pages/Listing";
 import Product from "@/pages/Product";
 import Profile from "@/pages/Profile";
 import Root from "@/pages/root";
@@ -28,9 +29,9 @@ function RoutesConfig() {
           path: "",
           element: <Home />,
           children: [
-            { path: "", element: <Featured /> },
-            { path: "featured", element: <Featured /> },
-            { path: "latest", element: <Latest /> },
+            { path: "", element: <BestSelling /> },
+            { path: "featured", element: <Featured/> },
+            { path: "latest", element:<LatestProducts/>},
           ],
         },
         {
@@ -44,7 +45,7 @@ function RoutesConfig() {
         {
           path: "login",
           element: <QuestRoutes />,
-          children:[{path:"",element:<LoginContainer/>}]
+          children: [{ path: "", element: <LoginContainer /> }],
         },
         {
           path: "signup",
@@ -65,9 +66,8 @@ function RoutesConfig() {
         },
         {
           path: "search",
-          element: <ListingContainer/>
-        
-        }
+          element: <ListingContainer />,
+        },
       ],
     },
   ]);

@@ -73,7 +73,8 @@ export const getFilterServices = async () => Filter.find().lean();
 export const getBestsellingServices = async () => {
   const products = await Product.find({})
     //  .sort({ sold: -1 })
-    .select("avatar name price status id")
+    .select("avatar name price status _id")
+    .sort({ createdAt: 1 })
     .limit(4)
     .lean();
   return products;
@@ -81,8 +82,19 @@ export const getBestsellingServices = async () => {
 
 export const getLatestServices = async () => {
   const products = await Product.find({})
-    .select("avatar name price status id")
+    .select("avatar name price status _id")
     .sort({ createdAt: -1 })
+    .limit(4)
+    .lean();
+  return products;
+};
+
+export const getFeaturedServices = async (params) => {
+  // this is  fake service    becouse  i have not  implemented the featured
+  //product logig yet
+  const products = await Product.find()
+    .select("avatar name price status _id")
+    .skip(10)
     .limit(4)
     .lean();
   return products;

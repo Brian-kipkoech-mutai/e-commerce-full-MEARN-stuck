@@ -32,7 +32,7 @@ function Footer() {
             <div className="space-y-3   ">
               <section className="flex gap-2 items-center ">
                 <ComapanyLogoPlain />{" "}
-                <span className=" font-bold">TrendHive</span>
+                <span className=" font-bold"></span>
               </section>
               <p className="text-muted-foreground">
                 TrendHive: Where Trends Thrive

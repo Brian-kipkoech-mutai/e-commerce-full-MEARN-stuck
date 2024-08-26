@@ -15,7 +15,7 @@ import { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Trasition from "@/components/Trasition";
 import classNames from "classnames";
-import CardBox from "@/components/cardBox";
+import CardBox from "@/components/listingBox";
 
 const Product = () => {
   const tapVariance = { scale: 0.9 };
@@ -145,7 +145,7 @@ const Product = () => {
                   <motion.div
                     className="w-12 h-10 grid place-items-center cursor-pointer"
                     initial={{
-                      y: decrease?10:-10,
+                      y: decrease ? 10 : -10,
                       opacity: 0,
                     }}
                     animate={{
@@ -153,7 +153,7 @@ const Product = () => {
                       opacity: 1,
                     }}
                     exit={{
-                      y:  decrease?-10:10,
+                      y: decrease ? -10 : 10,
                       opacity: 0,
                     }}
                     key={quantity}
@@ -242,7 +242,7 @@ const Product = () => {
                 SIMILAR PRODUCTS
               </p>
             </div>
-            <CardBox/>
+            <CardBox />
           </section>
         </section>
       </section>

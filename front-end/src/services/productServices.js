@@ -8,3 +8,10 @@ export const searchProducts = async (pageParam, searchParams) =>
 
 export const getFilters = async () =>
   await axiosInstance.get(apiUrls.GET_PRODUCTS_FILTERS);
+
+export const getBestSelling = async () =>
+  axiosInstance.get(apiUrls.GET_PRODUCTS_BESTSELLING);
+
+export const getLatest = async () =>
+  axiosInstance.get(apiUrls.GET_PRODUCTS_LATEST);
+export const getFeatured = async () => axiosInstance.get(apiUrls.GET_PRODUCTS_FEATURED);
