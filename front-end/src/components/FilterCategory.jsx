@@ -7,16 +7,16 @@ function FilterCategory({ name, options, handleSelect, selectedValues }) {
     <section className="">
       <h2 className="font-semibold text-gray-800 mb-1">{name}</h2>
       <section className="flex gap-2 gap-y-2  flex-wrap">
-        {options.map(({ label, value }) => (
+        {options.map(({ label, value },i) => (
           <div
-            key={label}
+            key={i}
             className={classNames(
               "px-2 rounded-full   bg-gray-100 w-fit flex gap-1 items-center border",
               {
                 "bg-teal-600 text-teal-100": value in selectedValues,
               }
             )}
-            onClick={() => handleSelect({ name, value })}
+            onClick={() => handleSelect({ name, value ,label})}
           >
             <span className="font-semibold text-xs">{label}</span>{" "}
             <XIcon className="w-3" />

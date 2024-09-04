@@ -35,7 +35,7 @@ function ListingContainer() {
     if (inView) fetchNextPage();
   }, [inView, fetchNextPage]);
 
-  const handleSelect = ({ name, value }) => {
+  const handleSelect = ({ name, value, label }) => {
     const updatedFilters = { ...filters };
     const updatedValues = { ...selectedValues };
 
@@ -46,19 +46,22 @@ function ListingContainer() {
     } else {
       //this  is util function to hadle the edge case  for  star-rating &&  price-rating
       advacedFilter({ name, updatedFilters, updatedValues, value });
-      updatedValues[value] = value;
+      updatedValues[value] = label;
       if (name in updatedFilters) updatedFilters[name].push(value);
       else updatedFilters[name] = [value];
     }
 
     setSelectedValues(updatedValues);
     setFilters(updatedFilters);
-
+  //  console.log(searchParams.value());
     const searchQueries = {};
     for (const [key, values] of Object.entries(updatedFilters))
       searchQueries[key] = values.join(",");
+    
+
 
     setSearchParams(searchQueries);
+      console.log([...searchParams.entries()]);
   };
 
   return (
