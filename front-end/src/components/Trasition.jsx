@@ -1,6 +1,6 @@
 import { motion, useIsPresent } from "framer-motion";
 import React from "react";
-
+ 
 function Trasition(props) {
   const isPresent = useIsPresent();
   return (
