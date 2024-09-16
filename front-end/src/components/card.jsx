@@ -12,9 +12,9 @@ function CardContainer({ price, name, status, image, id }) {
       <div className="relative" style={{ paddingBottom: "100%" }}>
         <img
           src={image}
-          lazy
+          lazy="true"
           alt={"image failed to load"}
-          srcset=""
+          
           className="w-full h-full absolute object-cover"
         />
         <section className=" absolute  opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 top-0 w-full h-full  flex  flex-col justify-between  bg-gray-50 bg-opacity-60 ">
@@ -32,7 +32,7 @@ function CardContainer({ price, name, status, image, id }) {
           </section>
         </section>
       </div>
-      <Link className="block" to={`/product/details?=${id}`}>
+      <Link className="block" to={`/product/details?productId=${id}`}>
         <div className="p-2">
           <div className="flex-col gap-3 w-full items-start      rounded-md space-y-2 ">
             <h2 className="font-semibold  truncate">{name}</h2>

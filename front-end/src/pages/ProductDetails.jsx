@@ -1,5 +1,4 @@
 import { Card, CardContent } from "@/components/ui/card";
-import Featured from "../assets/images/pexels-leticiacurveloph-26093505-removebg-preview.png";
 import {
   Carousel,
   CarouselContent,
@@ -15,9 +14,19 @@ import { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Trasition from "@/components/Trasition";
 import classNames from "classnames";
-import CardBox from "@/components/listingBox";
+import SimilarProducts from "@/components/SimilarProducts";
 
-const Product = () => {
+const ProductDetails = ({ data: { data }, productId }) => {
+  const {
+    name,
+    status,
+    price,
+    image: imgObject,
+    size,
+    ratingCount,
+    averageCount,
+  } = data;
+  const AvailableColors = Object.keys(imgObject);
   const tapVariance = { scale: 0.9 };
 
   const quantityButtonVariance = {
@@ -25,26 +34,33 @@ const Product = () => {
       scale: 2,
     },
   };
+  const sizeAbbreviations = {
+    Medium: "m",
+    Small: "s",
+    Large: "l",
+    "X-large": "xl",
+  };
 
   const isReview = useLocation().pathname.includes("reviews");
   const [activeSize, setActiveSize] = useState(null);
-  const [activeColor, setACtiveColor] = useState(0);
+  const [activeColor, setACtiveColor] = useState(AvailableColors[0]);
   const [quantity, setQuantity] = useState(1);
   const [decrease, setDecreaseFlag] = useState(false);
+  const images = imgObject[activeColor];
   return (
     <div>
       <section className="  flex  flex-col lg:flex-row gap-2 md:gap-10 lg:gap-20 items-center  max-w-screen-lg mx-auto  pb-20">
         <div className="  lg:w-[60%]">
           <Carousel className=" h-full">
             <CarouselContent className=" h-full">
-              {[...Array(4)].map((_, i) => (
+              {images.map((url, i) => (
                 <CarouselItem key={i}>
                   <Card>
                     <CardContent className=" bg-gray-100  h-full ">
                       <img
-                        src={Featured}
+                        src={url}
                         alt=""
-                        className="   h-72 lg:h-[80vh]     w-full object-contain"
+                        className="   h-72 lg:h-[80vh]     w-full object-cover"
                       />
                     </CardContent>
                   </Card>
@@ -58,9 +74,7 @@ const Product = () => {
         {/* down here */}
         <div className="flex  lg:flex-col   flex-wrap lg:flex-nowrap  justify-between  gap-y-6 lg:gap-y-6 md:gap-y-20  gap-x-10 lg:gap-x-0  lg:w-[45%] w-full px-3">
           <div className="flex  w-full justify-between gap-2 items-center  mt-5 ">
-            <h1 className="font-semibold  text-2xl lg:text-3xl  ">
-              Raw Black T-Shirt Lineup
-            </h1>
+            <h1 className="font-semibold  text-2xl lg:text-3xl  ">{name}</h1>
             <motion.div
               className="cursor-pointer"
               whileHover={{
@@ -75,31 +89,34 @@ const Product = () => {
           <div className="space-y-4">
             <section className="flex gap-2 bg-gray-100 px-3 py-1 rounded-full w-fit items-center text-sm text-muted-foreground font-semibold tracking-wide">
               <Star className="text-gray-800 h-4 w-4 " />{" "}
-              <span> 4.2- 54 reviews</span> <span>in stock</span>
+              <span>
+                {" "}
+                {averageCount} - {ratingCount} reviews
+              </span>{" "}
+              <span>{status}</span>
             </section>
-            <section className="font-semibold text-xl">$75.00</section>
+            <section className="font-semibold text-xl">$ {price}</section>
           </div>
           <div className="space-y-4">
             <h2 className="uppercase   text-muted-foreground text-sm font-semibold tracking-wide">
               Available Colors
             </h2>
             <div className="flex gap-4">
-              {["gray", "green", "blue"]
-                .map((color) => `bg-${color}-600`)
-                .map((color, i) => (
+              {AvailableColors.map((color, i) => (
+                <section
+                  key={i}
+                  onClick={() => setACtiveColor(color)}
+                  className={classNames({
+                    "hover:ring-1 rounded-full cursor-pointer": true,
+                    "ring-1 rounded-full": activeColor == i,
+                  })}
+                >
                   <section
-                    key={i}
-                    onClick={() => setACtiveColor(i)}
-                    className={classNames({
-                      "hover:ring-1 rounded-full cursor-pointer": true,
-                      "ring-1 rounded-full": activeColor == i,
-                    })}
-                  >
-                    <section
-                      className={`h-6 w-6 rounded-full m-1 ${color}`}
-                    ></section>
-                  </section>
-                ))}
+                    style={{ background: color }}
+                    className={`h-6 w-6 rounded-full m-1 `}
+                  ></section>
+                </section>
+              ))}
             </div>
           </div>
           <div className="space-y-4">
@@ -109,7 +126,7 @@ const Product = () => {
               </p>
             </section>
             <section className="flex gap-3  rounded-sm px-3 py-2 w-fit">
-              {["s", "m", "x", " XL", "XXL"].map((el, i) => (
+              {size.map((el, i) => (
                 <motion.div
                   key={i}
                   className={classNames({
@@ -119,7 +136,7 @@ const Product = () => {
                   whileTap={tapVariance}
                   onClick={() => setActiveSize(i)}
                 >
-                  {el.toUpperCase()}
+                  {sizeAbbreviations[el]?.toUpperCase()}
                 </motion.div>
               ))}
             </section>
@@ -242,7 +259,7 @@ const Product = () => {
                 SIMILAR PRODUCTS
               </p>
             </div>
-            <CardBox />
+            <SimilarProducts productId={productId} />
           </section>
         </section>
       </section>
@@ -250,4 +267,4 @@ const Product = () => {
     </div>
   );
 };
-export default Product;
+export default ProductDetails;

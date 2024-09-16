@@ -2,16 +2,15 @@ import BestSelling from "@/components/BestSelling";
 import DetailSection from "@/components/DetailSection";
 import Featured from "@/components/Featured";
 import LatestProducts from "@/components/Latest";
-import Latest from "@/components/Latest";
 import ProtectedRoutes from "@/components/ProtectedRoutes";
 import QuestRoutes from "@/components/QuestRoutes";
 import ReviewSection from "@/components/ReviewSection";
 import ListingContainer from "@/container/ListingContainer";
 import LoginContainer from "@/container/LoginContainer";
+import ProductContainer from "@/container/productContainer";
 import SignUpContainer from "@/container/SignUpContainer";
 import ForgotPassword from "@/pages/ForgotPassword";
 import Home from "@/pages/home";
-import Product from "@/pages/Product";
 import Profile from "@/pages/Profile";
 import Root from "@/pages/root";
 import Verification from "@/pages/Verification";
@@ -28,15 +27,20 @@ function RoutesConfig() {
         {
           path: "",
           element: <Home />,
+
           children: [
             { path: "", element: <BestSelling /> },
-            { path: "featured", element: <Featured/> },
-            { path: "latest", element:<LatestProducts/>},
+            { path: "featured", element: <Featured /> },
+            { path: "latest", element: <LatestProducts /> },
           ],
         },
         {
-          path: "product",
-          element: <Product />,
+          path: "search",
+          element: <ListingContainer />,
+        },
+        {
+          path: "product/details",
+          element: <ProductContainer />,
           children: [
             { path: "reviews", element: <ReviewSection /> },
             { path: "details", element: <DetailSection /> },
@@ -63,10 +67,6 @@ function RoutesConfig() {
         {
           path: "verification/:status",
           element: <Verification />,
-        },
-        {
-          path: "search",
-          element: <ListingContainer />,
         },
       ],
     },
