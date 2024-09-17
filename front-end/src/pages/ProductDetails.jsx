@@ -16,7 +16,7 @@ import Trasition from "@/components/Trasition";
 import classNames from "classnames";
 import SimilarProducts from "@/components/SimilarProducts";
 
-const ProductDetails = ({ data: { data }, productId }) => {
+const ProductDetails = ({ data, productId }) => {
   const {
     name,
     status,
@@ -25,7 +25,9 @@ const ProductDetails = ({ data: { data }, productId }) => {
     size,
     ratingCount,
     averageCount,
-  } = data;
+  } = data.data;
+  const { search } = useLocation();
+  
   const AvailableColors = Object.keys(imgObject);
   const tapVariance = { scale: 0.9 };
 
@@ -47,6 +49,7 @@ const ProductDetails = ({ data: { data }, productId }) => {
   const [quantity, setQuantity] = useState(1);
   const [decrease, setDecreaseFlag] = useState(false);
   const images = imgObject[activeColor];
+  console.log('data',data);
   return (
     <div>
       <section className="  flex  flex-col lg:flex-row gap-2 md:gap-10 lg:gap-20 items-center  max-w-screen-lg mx-auto  pb-20">
@@ -212,7 +215,13 @@ const ProductDetails = ({ data: { data }, productId }) => {
       <section className=" px-3 max-w-screen-lg mx-auto">
         <section className="flex flex-col  md:flex-row ">
           <section className=" w-full md:w-[30%] flex flex-row  md:flex-col  justify-between md:justify-center gap-4">
-            <Link to="details" className="block">
+            <Link
+              to={{
+                pathname: "details",
+                search,
+              }}
+              className="block"
+            >
               <div
                 className={classNames({
                   "flex gap-3 items-center rounded-md cursor-pointer px-6 py-2": true,
@@ -223,7 +232,13 @@ const ProductDetails = ({ data: { data }, productId }) => {
                 <p className="font-semibold">Details</p>
               </div>
             </Link>
-            <Link to="reviews" className="block">
+            <Link
+              to={{
+                pathname: "reviews",
+                search,
+              }}
+              className="block"
+            >
               <div
                 className={classNames({
                   "flex gap-3 items-center active:bg-gray-100 px-6 py-2 rounded-md cursor-pointer text-muted-foreground": true,

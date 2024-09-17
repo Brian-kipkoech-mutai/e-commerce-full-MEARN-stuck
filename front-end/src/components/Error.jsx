@@ -1,6 +1,6 @@
 import { ServerCrash } from "lucide-react";
 import React from "react";
-import Trasition from "./Trasition";
+ 
 
 function ErrorComponent({ message }) {
   return (

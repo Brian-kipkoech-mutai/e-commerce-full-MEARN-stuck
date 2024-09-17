@@ -1,6 +1,6 @@
 import React from "react";
 import { PacmanLoader } from "react-spinners";
-import Trasition from "./Trasition";
+ 
 function Loading({ message }) {
   return (
     <div className="px-4 h-80  flex justify-center items-center ">

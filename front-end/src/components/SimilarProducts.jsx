@@ -7,7 +7,7 @@ import CardBox from "./cardsBox";
 
 function SimilarProducts({ productId }) {
   const { error, data, isLoading } = useQuery({
-    queryKey: [productId],
+    queryKey: ["similarProducts", productId],
     queryFn: () => getSimilarProducts(productId),
   });
   return isLoading ? (

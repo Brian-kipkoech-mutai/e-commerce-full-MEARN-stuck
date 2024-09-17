@@ -3,29 +3,28 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import classNames from "classnames";
 import { Star } from "lucide-react";
 
-function Review(props) {
+function Review({ review:{name, rating, comment, apriviation, picture} }) {
+      
   return (
-    <div className="flex flex-col gap-8 md:flex-row">
+    <div className="flex flex-col gap-8 justify-between md:flex-row">
       <section>
-        <Avatar className="p-2 bg-violet-50 text- text-violet-300 font-semibold">
-          <AvatarImage src="" />
-          <AvatarFallback className="bg-inherit">B.K</AvatarFallback>
+        <Avatar className="p-2 bg-violet-50  text-violet-300 font-semibold">
+          <AvatarImage src={picture} />
+          <AvatarFallback className="bg-inherit">{apriviation}</AvatarFallback>
         </Avatar>
       </section>
-      <section className="space-y-1">
-        <h2 className="font-semibold">Brian Kipkoech</h2>
+      <section className="space-y-1 flex-1">
+        <h2 className="font-semibold">{name}</h2>
         <p className="text-xs uppercase text-muted-foreground"> 1 week ago</p>
-        <p className="text-sm text-muted-foreground pt-2">
-          this company always gose above and beyond to satify their customers
-        </p>
+        <p className="text-sm text-muted-foreground pt-2">{comment}</p>
       </section>
       <section className="flex gap-2">
-        {[...Array(5)].map((el, i) => (
+        {[...Array(Number(5))].map((el, i) => (
           <Star
             key={i}
             className={classNames({
               "w-4 h-4": true,
-              "fill-gray-700": i < 4,
+              "fill-gray-700": i < rating,
             })}
           />
         ))}

@@ -10,7 +10,8 @@ import {
 } from "@/components/ui/select";
 import Review from "./Review";
 
-function ReviewSection() {
+function ReviewSection({ data: { data } }) {
+ 
   const tapVariance = { scale: 0.9 };
   return (
     <section className=" w-full md:w-[70%]  md:pl-10 space-y-4 pb-20">
@@ -49,8 +50,8 @@ function ReviewSection() {
             </section>
             <hr className="w-full" />
             <section className="flex flex-col gap-6">
-              {[...Array(4)].map((el, i) => (
-                <Review key={i} />
+              {data.map((review, i) => (
+                <Review key={i} {...{ review }} />
               ))}
             </section>
           </section>

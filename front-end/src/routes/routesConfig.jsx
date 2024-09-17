@@ -4,10 +4,10 @@ import Featured from "@/components/Featured";
 import LatestProducts from "@/components/Latest";
 import ProtectedRoutes from "@/components/ProtectedRoutes";
 import QuestRoutes from "@/components/QuestRoutes";
-import ReviewSection from "@/components/ReviewSection";
 import ListingContainer from "@/container/ListingContainer";
 import LoginContainer from "@/container/LoginContainer";
 import ProductContainer from "@/container/productContainer";
+import ReviewConatainer from "@/container/ReviewConatainer";
 import SignUpContainer from "@/container/SignUpContainer";
 import ForgotPassword from "@/pages/ForgotPassword";
 import Home from "@/pages/home";
@@ -17,8 +17,9 @@ import Verification from "@/pages/Verification";
 import { AnimatePresence } from "framer-motion";
 import React, { cloneElement } from "react";
 import { useLocation, useRoutes } from "react-router-dom";
-
+ 
 function RoutesConfig() {
+  const { pathname, search } = useLocation();
   const routes = useRoutes([
     {
       path: "/",
@@ -39,10 +40,10 @@ function RoutesConfig() {
           element: <ListingContainer />,
         },
         {
-          path: "product/details",
+          path: "product",
           element: <ProductContainer />,
           children: [
-            { path: "reviews", element: <ReviewSection /> },
+            { path: "reviews", element: <ReviewConatainer /> },
             { path: "details", element: <DetailSection /> },
           ],
         },
@@ -74,7 +75,7 @@ function RoutesConfig() {
 
   return (
     <AnimatePresence mode="wait" initial={false}>
-      {cloneElement(routes, { key: useLocation().pathname })}
+      {cloneElement(routes, { key: `${pathname} ${search}` })}
     </AnimatePresence>
   );
 }
