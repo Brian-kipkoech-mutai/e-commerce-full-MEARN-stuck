@@ -49,30 +49,32 @@ const ProductDetails = ({ data, productId }) => {
   const [quantity, setQuantity] = useState(1);
   const [decrease, setDecreaseFlag] = useState(false);
   const images = imgObject[activeColor];
-  console.log('data',data);
+  
   return (
     <div>
       <section className="  flex  flex-col lg:flex-row gap-2 md:gap-10 lg:gap-20 items-center  max-w-screen-lg mx-auto  pb-20">
         <div className="  lg:w-[60%]">
-          <Carousel className=" h-full">
-            <CarouselContent className=" h-full">
-              {images.map((url, i) => (
-                <CarouselItem key={i}>
-                  <Card>
-                    <CardContent className=" bg-gray-100  h-full ">
-                      <img
-                        src={url}
-                        alt=""
-                        className="   h-72 lg:h-[80vh]     w-full object-cover"
-                      />
-                    </CardContent>
-                  </Card>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="top-[90%] left-[72%] text-bold" />
-            <CarouselNext className="top-[90%] left-[85%] text-bold" />
-          </Carousel>
+          {images && (
+            <Carousel className=" h-full">
+              <CarouselContent className=" h-full">
+                {images.map((url, i) => (
+                  <CarouselItem key={i}>
+                    <Card>
+                      <CardContent className=" bg-gray-100  h-full ">
+                        <img
+                          src={url}
+                          alt=""
+                          className="h-72 lg:h-[80vh]     w-full object-cover"
+                        />
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="top-[90%] left-[72%] text-bold" />
+              <CarouselNext className="top-[90%] left-[85%] text-bold" />
+            </Carousel>
+          )}
         </div>
         {/* down here */}
         <div className="flex  lg:flex-col   flex-wrap lg:flex-nowrap  justify-between  gap-y-6 lg:gap-y-6 md:gap-y-20  gap-x-10 lg:gap-x-0  lg:w-[45%] w-full px-3">

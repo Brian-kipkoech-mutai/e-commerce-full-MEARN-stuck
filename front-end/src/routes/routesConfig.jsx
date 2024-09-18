@@ -1,9 +1,9 @@
 import BestSelling from "@/components/BestSelling";
-import DetailSection from "@/components/DetailSection";
 import Featured from "@/components/Featured";
 import LatestProducts from "@/components/Latest";
 import ProtectedRoutes from "@/components/ProtectedRoutes";
 import QuestRoutes from "@/components/QuestRoutes";
+import DetailsContainer from "@/container/detailsContainer";
 import ListingContainer from "@/container/ListingContainer";
 import LoginContainer from "@/container/LoginContainer";
 import ProductContainer from "@/container/productContainer";
@@ -17,7 +17,7 @@ import Verification from "@/pages/Verification";
 import { AnimatePresence } from "framer-motion";
 import React, { cloneElement } from "react";
 import { useLocation, useRoutes } from "react-router-dom";
- 
+
 function RoutesConfig() {
   const { pathname, search } = useLocation();
   const routes = useRoutes([
@@ -44,7 +44,7 @@ function RoutesConfig() {
           element: <ProductContainer />,
           children: [
             { path: "reviews", element: <ReviewConatainer /> },
-            { path: "details", element: <DetailSection /> },
+            { path: "details", element: <DetailsContainer/>},
           ],
         },
         {

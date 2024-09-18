@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Review from "./Review";
+import WriteReview from "./writeReview";
 
 function ReviewSection({ data: { data } }) {
  
@@ -31,9 +32,10 @@ function ReviewSection({ data: { data } }) {
       <div className="space-y-10 ">
         <div className="space-y-4">
           <motion.section className="w-fit" whileTap={tapVariance}>
-            <Button className=" py-5 px-6   shadow-sm border">
+            {/* <Button className=" py-5 px-6   shadow-sm border">
               Write a review
-            </Button>
+            </Button> */}
+            <WriteReview/>
           </motion.section>
           <section className="space-y-4">
             <section className="flex justify-end">

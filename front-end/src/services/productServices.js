@@ -24,6 +24,11 @@ export const getProductDetails = async (productId) =>
 export const getSimilarProducts = async (productId) =>
   axiosInstance.get(`${apiUrls.GET_SIMILAR_PRODUCTS}?productId=${productId}`);
 
-
 export const getProductReviews = async (productId) =>
   axiosInstance.get(`${apiUrls.GET_PRODUCT_REVIEWS}?productId=${productId}`);
+
+export const getProductDescription = async (productId) =>
+  axiosInstance.get(
+    `${apiUrls.GET_PRODUCT_DESCRIPTION}?productId=${productId}`
+  );
+  

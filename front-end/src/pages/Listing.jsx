@@ -1,5 +1,4 @@
 import React, { forwardRef } from "react";
-import useDetectScroll from "@smakss/react-scroll-direction";
 
 import {
   Drawer,
@@ -12,13 +11,13 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-import { ActivitySquare, FilterXIcon } from "lucide-react";
+import { FilterXIcon } from "lucide-react";
 import FilterCategory from "@/components/FilterCategory";
 import Loading from "@/components/Loading";
 import ListingBox from "@/components/listingBox";
 import Trasition from "@/components/Trasition";
 import { motion } from "framer-motion";
-import { DotFilledIcon } from "@radix-ui/react-icons";
+import useDetectScroll from "@smakss/react-scroll-direction";
 
 const Listing = forwardRef(
   (
@@ -71,14 +70,16 @@ const Listing = forwardRef(
                   kety={i}
                 >
                   {" "}
-                  {label} <span className="block bg-green-600 rounded-full w-2 h-2 ml-1"></span>
+                  {label}{" "}
+                  <span className="block bg-green-600 rounded-full w-2 h-2 ml-1"></span>
                 </div>
               ))}{" "}
             </section>
           </div>
           <Drawer>
             <DrawerTrigger className="border px-2  rounded  py-2 flex gap-1 items-center  bg-gray-800 text-white ">
-              <span className="block">Filters</span> <FilterXIcon className="w-4 block" />
+              <span className="block">Filters</span>{" "}
+              <FilterXIcon className="w-4 block" />
             </DrawerTrigger>
             <DrawerContent>
               <DrawerClose className="self-end px-4">
@@ -93,7 +94,7 @@ const Listing = forwardRef(
                     <Loading message="Loading, hold on" />
                   ) : (
                     <div className="space-y-2 max-h-svh overflow-scroll">
-                      {filtersData.data.map(({ name, options },i) => (
+                      {filtersData.data.map(({ name, options }, i) => (
                         <FilterCategory
                           key={i}
                           name={name}
