@@ -1,6 +1,8 @@
+import ErrorHandler from "../ErrorHandler.js";
 import Filter from "../models/filter.js";
 import Image from "../models/image.js";
 import Product from "../models/product.js";
+import Review from "../models/review.js";
 import generateSearchQuery from "../utils/generateSearchQuery.js";
 
 export const searchServices = async ({ page, Colors, ...query }) => {
@@ -91,11 +93,73 @@ export const getLatestServices = async () => {
 
 export const getFeaturedServices = async (params) => {
   // this is  fake service    becouse  i have not  implemented the featured
-  //product logig yet
+  //product logic yet
   const products = await Product.find()
     .select("avatar name price status _id")
     .skip(10)
     .limit(4)
     .lean();
   return products;
+};
+
+export const getProductDetails = async (productId) => {
+  const product = await Product.findById(productId)
+    .populate({
+      path: "category",
+      select: "name",
+    })
+    .populate({
+      path: "brand",
+      select: "name",
+    })
+    .lean();
+  const image = await Image.findOne({ product: productId })
+    .select("image")
+    .lean();
+
+  if (!product) throw new ErrorHandler("Product not found", 400);
+  return { ...product, ...image };
+};
+
+export const getSimilarProducts = async (productId) => {
+  const product = await Product.findById(productId);
+  if (!product) throw new ErrorHandler("Product not found", 400);
+  const similarProducts = await Product.find({
+    _id: { $ne: productId },
+    category: product.category,
+  })
+    .select("avatar name price status _id")
+    .limit(4)
+    .lean();
+  return similarProducts;
+};
+
+export const getProductReviews = async (productId) => {
+  const reviews = await Review.find({ productId }).populate("userId").lean();
+  const parsedReviews = reviews.map((review) => {
+    const {
+      rating,
+      comment,
+      userId: { name, picture },
+    } = review;
+    const apriviation = name
+      .split(" ")
+      .map((word) => word[0])
+      .join(".");
+    return { rating, comment, name, picture, apriviation };
+  });
+
+  return parsedReviews;
+};
+
+export const getProductDescription = async (productId) => {
+  const productDescription = await Product.findById(productId)
+    .select("description")
+    .lean();
+
+  return productDescription;
+};
+export const postProductReview = async (review) => {
+  await Review.create(review);
+  return review;
 };

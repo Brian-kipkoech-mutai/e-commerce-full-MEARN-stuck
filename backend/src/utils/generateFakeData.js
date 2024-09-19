@@ -37,7 +37,7 @@ const generateFakeData = async () => {
         return categoryId;
       })
     );
-     console.log('created  catgeories' ,categories)
+    console.log("created  catgeories", categories);
     // Generating brands
     const brands = await Promise.all(
       Array.from({ length: 5 }).map(async () => {
@@ -59,6 +59,7 @@ const generateFakeData = async () => {
           brand: faker.helpers.arrayElement(brands),
           stock: faker.number.int({ min: 0, max: 100 }),
           ratingCount: faker.number.int({ min: 0, max: 100 }),
+          description: faker.string.sample({ min: 100, max: 400 }),
           avatar: faker.image.urlLoremFlickr(),
           averageCount: faker.number.int({
             min: 1,

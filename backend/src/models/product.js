@@ -10,6 +10,7 @@ const productSchema = new Schema(
     stock: { type: Number, required: true },
     ratingCount: { type: Number, required: true, default: 0 },
     averageCount: { type: Number, required: true, default: 0 },
+    description: { type: String, required: true },
     size: { type: [String], enum: ["Small", "Medium", "Large", "X-large"] },
     status: {
       type: String,
