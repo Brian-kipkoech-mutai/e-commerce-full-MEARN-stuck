@@ -1,4 +1,4 @@
-{
+ {
   "name": "ecom-backend",
   "version": "1.0.0",
   "description": "ecom-backend",
@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "test",
-    "start": " nodemon ./server.js"
+    "start": "nodemon ./server.js"
   },
   "author": "Brian",
   "license": "MIT",
@@ -30,5 +30,8 @@
   },
   "devDependencies": {
     "@types/faker": "^6.6.8"
+  },
+  "engines": {
+    "node": "20.x"
   }
 }
