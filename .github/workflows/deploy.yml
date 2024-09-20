@@ -29,6 +29,8 @@ jobs:
           cd front-end
           npm run build
           cd ..
+      - name:  echo env Variables
+        run : echo  ${{ secrets.HEROKU_API_KEY }}
       - name: Deploy to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
