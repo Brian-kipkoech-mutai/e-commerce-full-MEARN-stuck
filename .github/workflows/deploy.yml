@@ -1,5 +1,4 @@
- 
-name: Deploy to Heroku
+ name: Deploy to Heroku
 on:
   push:
     branches:
@@ -14,21 +13,28 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 22.2.0
-      - name: print working directory 
-        run: ls -R
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            front-end/node_modules
+            backend/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
       - name: Install dependencies
         run: |
           cd front-end
           npm install
-          cd ..
-          cd backend
+          cd ../backend
           npm install
-          cd ..
       - name: Build frontend
         run: |
           cd front-end
           npm run build
-          cd ..
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
       - name: Deploy to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
