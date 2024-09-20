@@ -19,7 +19,7 @@ function ReviewConatainer(props) {
   ) : error ? (
     <ErrorComponent message={"Error occured when loading products reviews"} />
   ) : (
-    <ReviewSection {...{ data }} />
+    <ReviewSection {...{ data ,productId }} />
   );
 }
 

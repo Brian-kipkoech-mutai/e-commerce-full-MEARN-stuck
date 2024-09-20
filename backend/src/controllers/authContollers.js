@@ -59,6 +59,7 @@ export const resendEmailVerificationLink = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const userData = req.body;
+    
     const { user, isPasswordSame } = await loginService(userData);
 
     if (!user) {

@@ -31,4 +31,8 @@ export const getProductDescription = async (productId) =>
   axiosInstance.get(
     `${apiUrls.GET_PRODUCT_DESCRIPTION}?productId=${productId}`
   );
-  
+export const postProductReview = async (productId, review) =>
+  axiosInstance.post(
+    `${apiUrls.POST_PRODUCT_REVIEW}?productId=${productId}`,
+    review
+  );

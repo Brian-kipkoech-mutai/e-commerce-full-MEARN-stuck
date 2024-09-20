@@ -6,6 +6,7 @@ const queryClient = new QueryClient();
 const googleId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 function App() {
+  
   return (
     <div>
       <GoogleOAuthProvider clientId={googleId}>

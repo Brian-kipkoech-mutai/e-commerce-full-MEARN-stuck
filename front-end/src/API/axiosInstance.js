@@ -1,10 +1,13 @@
 import axios from "axios";
-
+//192.168.1.101    for  local news server
 const axiosInstance = axios.create({
-  baseURL: "http://192.168.1.101:5001/api",
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   timeout: 10000,
   withCredentials: true,
 });
+
+
+ 
 
 axiosInstance.interceptors.request.use(
   (config) => {

@@ -11,8 +11,7 @@ import {
 import Review from "./Review";
 import WriteReview from "./writeReview";
 
-function ReviewSection({ data: { data } }) {
- 
+function ReviewSection({ data: { data }, productId }) {
   const tapVariance = { scale: 0.9 };
   return (
     <section className=" w-full md:w-[70%]  md:pl-10 space-y-4 pb-20">
@@ -32,10 +31,7 @@ function ReviewSection({ data: { data } }) {
       <div className="space-y-10 ">
         <div className="space-y-4">
           <motion.section className="w-fit" whileTap={tapVariance}>
-            {/* <Button className=" py-5 px-6   shadow-sm border">
-              Write a review
-            </Button> */}
-            <WriteReview/>
+          <WriteReview productId={productId} />
           </motion.section>
           <section className="space-y-4">
             <section className="flex justify-end">

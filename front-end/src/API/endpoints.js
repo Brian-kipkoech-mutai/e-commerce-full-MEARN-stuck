@@ -17,7 +17,8 @@ export const apiUrls = {
   GET_PRODUCTDETAILS: "/products/details",
   GET_SIMILAR_PRODUCTS: "/products/similar",
   GET_PRODUCT_REVIEWS: "/products/reviews",
-  GET_PRODUCT_DESCRIPTION: "/products/description"
+  GET_PRODUCT_DESCRIPTION: "/products/description",
+  POST_PRODUCT_REVIEW: "/products/add/review",
 
   //order endpoints
 };
