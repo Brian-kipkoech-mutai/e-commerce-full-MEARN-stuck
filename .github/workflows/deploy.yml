@@ -37,7 +37,7 @@
           curl https://cli-assets.heroku.com/install.sh | sh
       - name: Deploy to Heroku
         env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_API_KEY: "HRKU-c44526a3-a919-4df8-8931-3d3fe1a694e8"
         run: |
           heroku git:remote --app ecom-fashion-server
           git subtree push --prefix backend heroku main
