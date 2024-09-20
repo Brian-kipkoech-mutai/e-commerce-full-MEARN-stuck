@@ -1,9 +1,9 @@
  name: Deploy to Heroku
- on:
+on:
   push:
     branches:
       - main
- jobs:
+jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
@@ -13,31 +13,22 @@
         uses: actions/setup-node@v3
         with:
           node-version: 22.2.0
-      - name: Cache Node.js modules
-        uses: actions/cache@v3
-        with:
-          path: |
-            front-end/node_modules
-            backend/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
       - name: Install dependencies
         run: |
           cd front-end
           npm install
-          cd ../backend
+          cd ..
+          cd backend
           npm install
+          cd ..
       - name: Build frontend
         run: |
           cd front-end
           npm run build
-      - name: Install Heroku CLI
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
+          cd ..
       - name: Deploy to Heroku
-        env:
-          HEROKU_API_KEY: "HRKU-c44526a3-a919-4df8-8931-3d3fe1a694e8"
-        run: |
-          heroku git:remote --app ecom-fashion-server
-          git subtree push --prefix backend heroku main
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ecom-fashion-server
+          heroku_email: kbrianmutai@gmail.com
