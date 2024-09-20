@@ -1,4 +1,4 @@
-name: Deploy to Heroku
+ name: Deploy to Heroku
 on:
   push:
     branches:
@@ -17,10 +17,12 @@ jobs:
         run: |
           cd backend
           npm install
-      - name: Install Heroku CLI
+      - name: Deploy backend to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ecom-fashion-server
+          heroku_email: kbrianmutai@gmail.com
+      - name: Push backend to Heroku using subtree
         run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
-      - name: Deploy backend to Heroku using Heroku CLI
-        run: |
-          heroku git:remote -a ecom-fashion-server
           git subtree push --prefix backend heroku main
