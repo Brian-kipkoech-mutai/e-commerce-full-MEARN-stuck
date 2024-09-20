@@ -1,4 +1,4 @@
-
+ 
 name: Deploy to Heroku
 on:
   push:
@@ -33,6 +33,5 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |
-          echo $HEROKU_API_KEY | heroku auth:token
-          heroku git:remote -a ecom-fashion-server
+          git remote add heroku https://git.heroku.com/ecom-fashion-server.git
           git subtree push --prefix backend heroku main
