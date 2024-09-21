@@ -21,13 +21,11 @@ jobs:
           npm install
 
       - name: Deploy backend to Heroku
-        uses: akhileshns/heroku-deploy@v3.12.12
+        uses: akhileshns/heroku-deploy@v3.12.15
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ecom-fashion-server
           heroku_email: kbrianmutai@gmail.com
+          appdir: "backend"
 
-      - name: Push backend to Heroku using subtree
-        run: |
-          git remote add heroku https://git.heroku.com/ecom-fashion-server.git
-          git subtree push --prefix backend heroku main
+      
