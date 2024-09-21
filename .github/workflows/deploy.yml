@@ -17,8 +17,18 @@ jobs:
 
       - name: Install dependencies
         run: |
+          cd front-end
+          npm install
+          cd ..
           cd backend
           npm install
+          cd ..
+          
+      - name: Build frontend
+        run: |
+          cd front-end
+          npm run build
+          cd ..
 
       - name: Deploy backend to Heroku
         uses: akhileshns/heroku-deploy@v3.13.15
