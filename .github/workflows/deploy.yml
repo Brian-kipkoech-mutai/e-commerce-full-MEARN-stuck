@@ -27,13 +27,21 @@ jobs:
           VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
           VITE_GOOGLE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
       
+      - name: Configure Git user
+        run: |
+          git config --global user.name "Brian-kipkoech-mutai"
+          git config --global user.email "kbrianmutai@gmail.com"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Commit frontend build to backend
         run: |
-          pwd
+        
           cd backend/public
           git add .   
           git commit -m "Update frontend build" || echo "No changes to commit"
-          cd ../../  
+          git push origin main || echo "No changes to push"
+
       
       - name: Deploy backend to Heroku
         uses: akhileshns/heroku-deploy@v3.13.15
