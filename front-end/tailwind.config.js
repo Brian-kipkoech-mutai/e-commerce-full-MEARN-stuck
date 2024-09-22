@@ -7,12 +7,7 @@ module.exports = {
     "./app/**/*.{js,jsx}",
     "./src/**/*.{js,jsx}",
   ],
-  safelist: [
-    "bg-gray-600",
-    "bg-green-600",
-    "bg-blue-600",
-     
-  ],
+  safelist: ["bg-gray-600", "bg-green-600", "bg-blue-600"],
   prefix: "",
   theme: {
     container: {
@@ -76,6 +71,9 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      fontFamily: {
+        inter: ["Inter"],
       },
     },
   },

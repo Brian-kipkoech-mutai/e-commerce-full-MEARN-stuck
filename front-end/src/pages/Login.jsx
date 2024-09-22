@@ -4,24 +4,17 @@ import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import Divider from "@/components/Divider";
 import Trasition from "@/components/Trasition";
-import { Toaster } from "@/components/ui/toaster";
 import { GoogleLogin } from "@react-oauth/google";
 
-function Login({
-  handleChange,
-  loading,
-  handleGoogleLogin,
-  handleLogin,
-}) {
+function Login({ handleChange, loading, handleGoogleLogin, handleLogin }) {
   return (
     <form
       className="max-w-xs mx-auto flex flex-col gap-4 py-8 "
       onSubmit={(e) => {
         e.preventDefault();
-        handleLogin()
+        handleLogin();
       }}
     >
-      <Toaster />
       <section>
         {" "}
         <GoogleLogin

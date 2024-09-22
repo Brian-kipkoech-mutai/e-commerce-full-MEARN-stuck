@@ -19,6 +19,29 @@ export const apiUrls = {
   GET_PRODUCT_REVIEWS: "/products/reviews",
   GET_PRODUCT_DESCRIPTION: "/products/description",
   POST_PRODUCT_REVIEW: "/products/add/review",
+  //cart endpoints
+  ADD_TO_CART: "/cart/add",
+  GET_CART: "/cart/get",
+  UPDATE_CART: "/cart/update",
+  REMOVE_FROM_CART: "/cart/remove",
+  CLEAR_CART: "/cart/clear",
+
+  //shipping endpoints
+  GET_SHIPPING_ADDRESS: "/shipping/get",
+  UPDATE_SHIPPING_ADDRESS: "/shipping/update",
+  DELETE_SHIPPING_ADDRESS: "/shipping/delete",
+
+  //payment endpoints
+  MAKE_PAYMENT: "/payment/make",
+  GET_PAYMENT_STATUS: "/payment/status",
+
+  //order endpoints
+  GET_ORDERS: "/order/get",
+  GET_ORDER_DETAILS: "/order/details",
+  CANCEL_ORDER: "/order/cancel",
+  UPDATE_ORDER_STATUS: "/order/update",
+  PLACE_ORDER: "/order/place",
+  GET_ORDER_SHIPMENT: "/order/shipment",
 
   //order endpoints
 };

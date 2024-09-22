@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import Divider from "@/components/Divider";
 import Trasition from "@/components/Trasition";
 import { Link } from "react-router-dom";
-import { Toaster } from "@/components/ui/toaster";
+
 import { GoogleLogin } from "@react-oauth/google";
 
 const SignUp = ({
@@ -17,8 +17,6 @@ const SignUp = ({
       className="max-w-xs mx-auto flex flex-col gap-4 py-8"
       onSubmit={handleSubmit}
     >
-      <Toaster className="shadow-xl" />
-
       <section>
         <GoogleLogin
           onSuccess={({ credential }) => handleGoogleSignup(credential)}

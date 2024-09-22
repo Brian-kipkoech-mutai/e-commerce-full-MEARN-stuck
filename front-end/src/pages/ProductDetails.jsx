@@ -16,7 +16,16 @@ import Trasition from "@/components/Trasition";
 import classNames from "classnames";
 import SimilarProducts from "@/components/SimilarProducts";
 
-const ProductDetails = ({ data, productId }) => {
+const ProductDetails = ({
+  productId,
+  data,
+  options,
+  setOptions,
+  handleAddToCart,
+  handleAddtoWishList,
+}) => {
+  const [decrease, setDecreaseFlag] = useState(false);
+
   const {
     name,
     status,
@@ -26,11 +35,11 @@ const ProductDetails = ({ data, productId }) => {
     ratingCount,
     averageCount,
   } = data.data;
-  const { search } = useLocation();
-  
-  const AvailableColors = Object.keys(imgObject);
-  const tapVariance = { scale: 0.9 };
 
+  const { activeSize, activeColor, quantity, availabeColors } = options;
+
+  const { search } = useLocation();
+  const tapVariance = { scale: 0.9 };
   const quantityButtonVariance = {
     tap: {
       scale: 2,
@@ -44,15 +53,12 @@ const ProductDetails = ({ data, productId }) => {
   };
 
   const isReview = useLocation().pathname.includes("reviews");
-  const [activeSize, setActiveSize] = useState(null);
-  const [activeColor, setACtiveColor] = useState(AvailableColors[0]);
-  const [quantity, setQuantity] = useState(1);
-  const [decrease, setDecreaseFlag] = useState(false);
+
   const images = imgObject[activeColor];
-  
+
   return (
     <div>
-      <section className="  flex  flex-col lg:flex-row gap-2 md:gap-10 lg:gap-20 items-center  max-w-screen-lg mx-auto  pb-20">
+      <section className=" flex  flex-col lg:flex-row gap-2 md:gap-10 lg:gap-20 items-center  max-w-screen-lg mx-auto  pb-20">
         <div className="  lg:w-[60%]">
           {images && (
             <Carousel className=" h-full">
@@ -107,13 +113,13 @@ const ProductDetails = ({ data, productId }) => {
               Available Colors
             </h2>
             <div className="flex gap-4">
-              {AvailableColors.map((color, i) => (
+              {availabeColors.map((color, i) => (
                 <section
                   key={i}
-                  onClick={() => setACtiveColor(color)}
+                  onClick={() => setOptions({ ...options, activeColor: color })}
                   className={classNames({
                     "hover:ring-1 rounded-full cursor-pointer": true,
-                    "ring-1 rounded-full": activeColor == i,
+                    "ring-1 rounded-full": activeColor == color,
                   })}
                 >
                   <section
@@ -136,10 +142,10 @@ const ProductDetails = ({ data, productId }) => {
                   key={i}
                   className={classNames({
                     "h-10 w-10 grid place-items-center border rounded-md text-xs font-semibold cursor-pointer hover:border-2 hover:border-gray-800": true,
-                    "border-gray-600 border-2": activeSize == i,
+                    "border-gray-600 border-2": activeSize == el,
                   })}
                   whileTap={tapVariance}
-                  onClick={() => setActiveSize(i)}
+                  onClick={() => setOptions({ ...options, activeSize: el })}
                 >
                   {sizeAbbreviations[el]?.toUpperCase()}
                 </motion.div>
@@ -157,9 +163,14 @@ const ProductDetails = ({ data, productId }) => {
                   variants={quantityButtonVariance}
                   whileTap="tap"
                   onClick={() => {
-                    quantity > 1 && setQuantity((prev) => prev - 1);
+                    quantity > 1 &&
+                      setOptions((prev) => ({
+                        ...prev,
+                        quantity: prev.quantity - 1,
+                      }));
                     setDecreaseFlag(true);
                   }}
+                  disabled={quantity === 1}
                 >
                   -
                 </motion.button>
@@ -188,7 +199,10 @@ const ProductDetails = ({ data, productId }) => {
                   variants={quantityButtonVariance}
                   whileTap="tap"
                   onClick={() => {
-                    setQuantity((prev) => prev + 1);
+                    setOptions((prev) => ({
+                      ...prev,
+                      quantity: prev.quantity + 1,
+                    }));
                     setDecreaseFlag(false);
                   }}
                 >
@@ -199,15 +213,18 @@ const ProductDetails = ({ data, productId }) => {
           </div>
           <div className="w-full md:w-3/4 max-w-lg    flex gap-4 justify-between lg:items-center sm:items-end   ">
             <motion.div className="flex-1 " whileTap={tapVariance}>
-              <Button className="w-full py-6">Add to Cart</Button>
+              <Button className="w-full py-6" onClick={handleAddToCart}>
+                Add to Cart
+              </Button>
             </motion.div>
 
-            <motion.div
+            <motion.button
+              onClick={handleAddtoWishList}
               className="grid place-items-center p-3 border rounded group cursor-pointer "
               whileTap={tapVariance}
             >
               <Heart className="group-hover:fill-gray-800" />
-            </motion.div>
+            </motion.button>
           </div>
           <p className="uppercase  text-muted-foreground font-semibold  text-sm tracking-wider">
             — Free shipping on orders $100+
