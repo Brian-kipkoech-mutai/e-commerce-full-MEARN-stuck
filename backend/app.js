@@ -7,6 +7,9 @@ import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import { productsRoutes } from "./src/routes/productRoutes.js";
 import { adminRoutes } from "./src/routes/adminRoutes.js";
+import { cartRoutes } from "./src/routes/cartRoutes.js";
+ 
+ 
  
 
 const app = express();
@@ -41,7 +44,8 @@ app.use(express.static(path.join(__dirname, "public")));
 //api routes 
 app.use("/api/auth", authRoutes);
 app.use('/api/products/', productsRoutes);
-app.use('/api/admin',adminRoutes)
+app.use('/api/admin', adminRoutes)
+app.use('/api/cat',cartRoutes)
 
 // serve  index .html for any request
 app.get("*", (req, res) => {
