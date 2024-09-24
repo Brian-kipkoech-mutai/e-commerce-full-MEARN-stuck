@@ -37,5 +37,4 @@ export const postProductReview = async (productId, review) =>
     review
   );
 
-export const postcatData = async (productData) =>
-  axiosInstance.post(apiUrls.ADD_TO_CART, productData);
+ 

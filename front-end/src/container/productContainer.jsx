@@ -3,7 +3,9 @@ import Loading from "@/components/Loading";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
 import ProductDetails from "@/pages/ProductDetails";
-import { getProductDetails, postcatData } from "@/services/productServices";
+import { postcartData } from "@/services/ cartServices";
+import { getProductDetails } from "@/services/productServices";
+import { addToWishList } from "@/services/whisListServices";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useMemo, useState } from "react";
@@ -44,17 +46,13 @@ function ProductContainer(props) {
   }, [availabeColors, data]);
 
   //post prod new  cat data  to  the server
-  const {
-    mutate: postCartData,
-    isSuccess,
-    isPending,
-    isIdle,
-  } = useMutation({
-    mutationFn: (productData) => postcatData(productData),
-    onSuccess: (data) => {
+  const { mutate: postCartData } = useMutation({
+    mutationFn: (productData) => postcartData(productData),
+    mutationKey: ["addTocat"],
+    onSuccess: ({ data: { message } }) => {
       toast({
         title: "Success",
-        description: `${data.data.name} added to your cart successfully `,
+        description: message,
         variant: "success",
         action: (
           <ToastAction altText="Try again" className="hover:bg-gray-600">
@@ -73,36 +71,75 @@ function ProductContainer(props) {
           </h1>
         ),
         variant: "destructive",
+        action: <ToastAction altText="Try again">undo</ToastAction>,
+      });
+    },
+  });
+  //post  new wishlist data  to the  serever;
+
+  const { mutate: postWhisListData } = useMutation({
+    mutationFn: (data) => addToWishList(data),
+    mutationKey: ["addToWhislist"],
+    onSuccess: ({ data: { message } }) => {
+      toast({
+        title: "Success",
+        description: message,
+        variant: "success",
         action: (
-          <ToastAction altText="Try again">undo</ToastAction>
+          <ToastAction altText="Try again" className="hover:bg-gray-600">
+            undo
+          </ToastAction>
         ),
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: (
+          <h1>
+            There was a problem adding {data.data.name} to your wishlist. Please
+            try again later.
+          </h1>
+        ),
+        variant: "destructive",
+        action: <ToastAction altText="Try again">undo</ToastAction>,
       });
     },
   });
 
   const handleAddToCart = () => {
     //check if the  the data is invalid
-    
-    //  send  request to the server
-    const data = {
-      ...options,
+    //we  are  not  cheking  other  props  sine  they have   default  except fott  size
+    //  which    is null by default
+    if (!options.activeSize) {
+      toast({
+        title: "Error",
+        description: "Please select a size and ",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    //  prepare data for the post request to the server
+    const { name, price } = data.data;
+    const { activeColor: color, activeSize: size, quantity } = options;
+    const cartData = {
+      color,
+      size,
+      quantity,
+      name,
+      price,
       productId,
     };
-    postCartData(data);
+    //send  data to the server
+    postCartData(cartData);
   };
+  //  send product to whisList  add endpoint
   const handleAddtoWishList = () => {
-    const message = `${data.data.name} added to wishList successfully `;
-    toast({
-      title: "Success",
-      description: message,
-      variant: "success",
-      action: (
-        <ToastAction altText="Try again" className="hover:bg-gray-600">
-          undo
-        </ToastAction>
-      ),
-    });
+    const { name } = data.data;
+    postWhisListData({ name, productId });
   };
+
   return isLoading ? (
     <Loading message={"loading product details..."} />
   ) : error ? (
