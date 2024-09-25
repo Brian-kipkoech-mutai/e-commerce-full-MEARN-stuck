@@ -2,7 +2,9 @@ import Cart from "../models/cart.js";
 
 export const addProductsToCatService = async (data) => {
   const { userId, name, ...ItemData } = data;
-  const cart = await Cart.findOne({ userId: data.userId });
+  console.log(ItemData);
+
+  const cart = await Cart.findOne({ userId });
 
   if (!cart) {
     await Cart.create({

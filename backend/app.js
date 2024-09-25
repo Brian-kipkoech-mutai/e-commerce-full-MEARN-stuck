@@ -8,6 +8,7 @@ import { fileURLToPath } from "url";
 import { productsRoutes } from "./src/routes/productRoutes.js";
 import { adminRoutes } from "./src/routes/adminRoutes.js";
 import { cartRoutes } from "./src/routes/cartRoutes.js";
+import { whislistRoutes } from "./src/routes/whisListRoutes.js";
  
  
  
@@ -45,7 +46,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/auth", authRoutes);
 app.use('/api/products/', productsRoutes);
 app.use('/api/admin', adminRoutes)
-app.use('/api/cat',cartRoutes)
+app.use('/api/cart', cartRoutes)
+app.use("/api/whishlist", whislistRoutes);
 
 // serve  index .html for any request
 app.get("*", (req, res) => {

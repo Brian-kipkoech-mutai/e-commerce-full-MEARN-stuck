@@ -14,7 +14,7 @@ const cartSchema = new Schema(
     userId: { type: Types.ObjectId, ref: "User", required: true },
     items: [cartItemSchema],
   },
-  { timestamps: true}
+  { timestamps: true }
 );
 
 const Cart = model("Cart", cartSchema);
