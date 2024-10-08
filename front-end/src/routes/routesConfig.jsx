@@ -3,6 +3,7 @@ import Featured from "@/components/Featured";
 import LatestProducts from "@/components/Latest";
 import ProtectedRoutes from "@/components/ProtectedRoutes";
 import QuestRoutes from "@/components/QuestRoutes";
+import CartContainer from "@/container/CartContainer";
 import DetailsContainer from "@/container/detailsContainer";
 import ListingContainer from "@/container/ListingContainer";
 import LoginContainer from "@/container/LoginContainer";
@@ -19,7 +20,7 @@ import React, { cloneElement } from "react";
 import { useLocation, useRoutes } from "react-router-dom";
 
 function RoutesConfig() {
-  const { pathname, search } = useLocation();
+  const { pathname } = useLocation();
   const routes = useRoutes([
     {
       path: "/",
@@ -44,7 +45,7 @@ function RoutesConfig() {
           element: <ProductContainer />,
           children: [
             { path: "reviews", element: <ReviewConatainer /> },
-            { path: "details", element: <DetailsContainer/>},
+            { path: "details", element: <DetailsContainer /> },
           ],
         },
         {
@@ -69,13 +70,17 @@ function RoutesConfig() {
           path: "verification/:status",
           element: <Verification />,
         },
+        {
+          path: "cart",
+          element: <CartContainer />,
+        },
       ],
     },
   ]);
 
   return (
     <AnimatePresence mode="wait" initial={false}>
-      {cloneElement(routes, { key: `${pathname} ${search}` })}
+      {cloneElement(routes, { key: pathname })}
     </AnimatePresence>
   );
 }

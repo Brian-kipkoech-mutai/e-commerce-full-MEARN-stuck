@@ -120,7 +120,7 @@ function Header() {
                               <ShoppingCart />
                             </NavLink>
                           </div>
-                          <span className="font-normal">Cart</span>
+                          <NavLink to={'/cart'} className="font-normal">Cart</NavLink>
                         </motion.div>
                       </motion.div>
                     </div>

@@ -61,13 +61,12 @@ function ProductContainer(props) {
         ),
       });
     },
-    onError: (err) => {
+    onError: (error) => {
       toast({
         title: "Error",
         description: (
           <h1>
-            There was a problem adding {data.data.name} to your cart. Please try
-            again later.
+            description: <h1>{error.message}</h1>,
           </h1>
         ),
         variant: "destructive",
@@ -92,15 +91,10 @@ function ProductContainer(props) {
         ),
       });
     },
-    onError: () => {
+    onError: (error) => {
       toast({
         title: "Error",
-        description: (
-          <h1>
-            There was a problem adding {data.data.name} to your wishlist. Please
-            try again later.
-          </h1>
-        ),
+        description: <h1>{error.message}</h1>,
         variant: "destructive",
         action: <ToastAction altText="Try again">undo</ToastAction>,
       });

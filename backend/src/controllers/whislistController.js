@@ -5,7 +5,7 @@ export const addToWishList = async (req, res, next) => {
     const userId = req.user.id;
       const data = req.body;
       
-    const message = await addTowWhislistService({ data, ...userId });
+    const message = await addTowWhislistService({ ...data,userId });
     return res.status(200).json({ message });
   } catch (error) {
     next(error);

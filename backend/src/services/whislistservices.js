@@ -3,14 +3,14 @@ import WhishList from "../models/whishlist.js";
 
 export const addTowWhislistService = async (data) => {
   const { userId, productId: newProductId, name } = data;
-    // console.log(data)
-  const whishList = WhishList.findOne({ userId });
+       console.log(userId)
+  const whishList = await  WhishList.findOne({ userId });
+  
   if (!whishList) {
     await WhishList.create({ userId, items: [{ productId: newProductId }] });
     return `${name} added to wishlist`;
   } else {
-    console.log(whishList.userId)
-    return;
+     
     
     const existingItem = whishList.items.find(({ productId }) =>
       productId.equals(newProductId)

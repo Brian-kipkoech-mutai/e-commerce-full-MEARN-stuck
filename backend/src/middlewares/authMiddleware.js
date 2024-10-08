@@ -6,7 +6,8 @@ export const checkAuthMiddware = async (req, res, next) => {
     const { auth_token } = req.cookies;
     if (!auth_token) {
       return res.status(401).json({
-        message: "Unauthorized. user dose not have an account",
+        message:
+          "Unauthorized. user dose not have an account please login or sign up",
       });
     }
     const decoded = jwt.verify(auth_token, JWT_SECRET_KEY);

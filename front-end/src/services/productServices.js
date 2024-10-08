@@ -36,5 +36,3 @@ export const postProductReview = async (productId, review) =>
     `${apiUrls.POST_PRODUCT_REVIEW}?productId=${productId}`,
     review
   );
-
- 
