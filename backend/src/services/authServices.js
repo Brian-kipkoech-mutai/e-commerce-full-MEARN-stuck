@@ -58,7 +58,7 @@ export const resendEmailVerificationLinkService = async (
 };
 
 export const loginService = async ({ email, password }) => {
-  console.log(email);
+   
   const user = await User.findOne({ email });
 
   if (user && user.provider === "google") {
